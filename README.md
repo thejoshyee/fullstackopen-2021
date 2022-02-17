@@ -1,4 +1,4 @@
-# University of Helsinki - Full Stack Open 2020
+# University of Helsinki - Full Stack Open 2021
 
 ## Full Stack Open 2021 Course
 Deep Dive Into Modern Web Development
