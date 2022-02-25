@@ -1,7 +1,11 @@
 import React from 'react'
 
-export default function Filter() {
+export default function Filter(props) {
+
+
   return (
-    <div>Filter</div>
+    <div>
+
+    </div>   
   )
 }
