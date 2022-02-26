@@ -4,7 +4,7 @@ import axios from "axios"
 
 function App() {
   const [countries, setCountries] = useState([])
-  const [filterCountry, setFilterCountry] = useState("")
+  const [filterQuery, setFilterQuery] = useState("")
 
   //get country data
   useEffect(() => {
@@ -15,42 +15,34 @@ function App() {
       )}
   )}, [])
 
-  console.log(countries)
 
-  //filtered data
-  // let filteredCountryData = countries.filter(country => {
-  //   return country.name.toLowerCase().includes(filterCountry.toLowerCase())
-  // })
-
-
-  //Render Country
-
-  // const renderCountriesList =  ( countries ) => {
-  //   if (countries.length > 10) {
-  //     return <p>Too many results. Please Try again...</p>
-  //   } else {
-  //     return (
-  //       countries.map((country) => <div key={country.numericCode}> {country.name} </div>)
-  //     )
-  //   }
-  // }
-
+  //countries to show 
+  const countriesToShow = countries.filter(country => {
+    if (!filterQuery) {
+      return false
+    } else if (filterQuery && country.toLowerCase().includes(filterQuery.toLowerCase())) {
+      return true
+    }
+  }).map((country, index) => {
+    return <div key={index}>{country}</div>
+  })
 
   //event handlers
-  const handleFilterCountry = e => setFilterCountry(e.target.value)
-
+  const onFilterQuery = e => setFilterQuery(e.target.value)
+      
 
   return (
     <div>
       Find Countries: 
       <input
         placeholder="Country Name..." 
-        value={filterCountry} 
-        onChange={handleFilterCountry}
+        value={filterQuery} 
+        onChange={onFilterQuery}
       />
 
       <div>
-        {/* {renderCountriesList} */}
+        {/* {renderCountriesList(countries)} */}
+        {countriesToShow}
       </div>
     </div>
   );
