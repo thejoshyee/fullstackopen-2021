@@ -1,14 +1,19 @@
 import React from "react"
 import { useState } from "react"
+import RenderDetails from "./RenderDetails"
 
 
 const RenderCountry = ({ country }) => {
-    const [isDetailsVisible, setIsDetailsVisible] = useState(false)
 
+    // state to show or hide details
+    const [isDetailsVisible, setIsDetailsVisible] = useState(false)
+    
+    // Button - show / hide details
     const showCountryDetails = (e) => {
         setIsDetailsVisible(!isDetailsVisible)
     }
 
+    // country language values
     const countryLangs = Object.values(country.languages)
 
     if (!isDetailsVisible) {
@@ -22,23 +27,14 @@ const RenderCountry = ({ country }) => {
         return (
             <div>
                 <h1>{country.name.common}</h1>
-                <button onClick={showCountryDetails}>Hide Country Info</button>
-                
-                <p><b>Capital:</b> {country.capital}</p>
-                <p><b>Area:</b> {country.area}</p>
-                <b>Languages:</b>
-                <ul>
-                    {countryLangs.map(lang => <li key={lang}>{lang}</li>)}
-                </ul>
-                <div className="flag">
-                    {country.flag}
-                </div>
-                
+                <button 
+                    onClick={showCountryDetails}>
+                    Hide Country Info
+                </button>
+                <RenderDetails country={country} countryLangs={countryLangs} />
             </div>
         )
     }
-
-
 }
 
 export default RenderCountry

@@ -10,7 +10,10 @@ const RenderCountriesList = ({ countries, filterQuery }) => {
     } else {
         return (
             countries.map(country => {
-            return <RenderCountry key={country.name.common} country={country}/>
+            return <RenderCountry 
+                key={country.name.common} 
+                country={country}
+                />
             })
       )
     }
