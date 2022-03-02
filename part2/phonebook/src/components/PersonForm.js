@@ -2,17 +2,28 @@ import React from 'react'
 import personService from "../services/personService"
 
 export default function PersonForm(props) {
+
+
+
   const addNameAndNumber = e => {
     e.preventDefault()
-    const isFound = props.persons.some(el => el.name === props.newName)
-    if(!isFound) {
-      const personObject = {
-        name: props.newName,
-        number: props.newNumber
-        }
-      
+    const found = props.persons.some(el => el.name === props.newName && el.number === props.newNumber)
+    const newPerson = {name: props.newName, number: props.newNumber}
+    const existingPerson = props.persons.filter(person => person.name === newPerson.name)[0]
+    console.log(existingPerson)
+
+    if(existingPerson) {
+      if(window.confirm(`${props.newName} is already added to phonebook, replease the old number with a new one?`))
       personService
-        .createPerson(personObject)
+        .updatePerson(existingPerson.id, newPerson)
+        .then(response => {
+          props.setPersons(props.persons.map(person => person.id !== existingPerson.id ? person : response))
+          alert(`Updated ${existingPerson.name}'s phone number.`)
+        })
+
+    } else if(!found) {
+      personService
+        .createPerson(newPerson)
         .then(returnedPerson => {
           props.setPersons(props.persons.concat(returnedPerson))
           props.setNewName('')
@@ -22,6 +33,7 @@ export default function PersonForm(props) {
     } else {
       alert(`${props.newName} is already in the phone book!`)
     }
+    
   }
 
   return (

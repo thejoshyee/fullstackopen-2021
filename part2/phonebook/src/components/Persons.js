@@ -5,17 +5,14 @@ import personService from '../services/personService'
 export default function Persons(props) {
   
   const deletePerson = (person) => {
-    personService
-      .deletePerson(person.id)
-      .then(deletedPerson => {
-        const result = window.confirm(`Delete ${person.name}?`)
-        return result
-      })
+    if(window.confirm(`Delete ${person.name}?`))
       personService
-      .getAllPersons()
-      .then(initialPersons => {
-        props.setPersons(initialPersons)
-      })
+        .deletePerson(person.id)
+      personService
+        .getAllPersons()
+        .then(initialPersons => {
+          props.setPersons(initialPersons)
+        })
   }
   
   const namesToShow = props.persons.filter(person => {
