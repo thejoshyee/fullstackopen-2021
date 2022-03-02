@@ -1,14 +1,9 @@
 {
   "persons": [
     {
-      "name": "John",
-      "number": "123",
+      "name": "John Smith",
+      "number": "123-445-5555",
       "id": 1
-    },
-    {
-      "name": "asdfads",
-      "number": "asdfadf",
-      "id": 2
     }
   ]
 }
