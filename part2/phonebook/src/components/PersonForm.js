@@ -1,7 +1,7 @@
 import React from 'react'
+import personService from "../services/personService"
 
 export default function PersonForm(props) {
-
   const addNameAndNumber = e => {
     e.preventDefault()
     const isFound = props.persons.some(el => el.name === props.newName)
@@ -10,9 +10,15 @@ export default function PersonForm(props) {
         name: props.newName,
         number: props.newNumber
         }
-      props.setPersons(props.persons.concat(personObject))
-      props.setNewName('')
-      props.setNewNumber('')
+      
+      personService
+        .createPerson(personObject)
+        .then(returnedPerson => {
+          props.setPersons(props.persons.concat(returnedPerson))
+          props.setNewName('')
+          props.setNewNumber('')
+        })
+
     } else {
       alert(`${props.newName} is already in the phone book!`)
     }

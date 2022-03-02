@@ -2,27 +2,23 @@ import { useState, useEffect } from "react"
 import Filter from "./components/Filter"
 import PersonForm from "./components/PersonForm"
 import Persons from "./components/Persons"
-import axios from "axios"
+import personService from "./services/personService"
 
 
 const App = () => {
-  // mock data
   const [persons, setPersons] = useState([]) 
-  // state
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filterName, setFilterName] = useState("")
 
-  //use effect
 useEffect(() => {
-  axios
-    .get("http://localhost:3001/persons")
-    .then(res => {
-      setPersons(res.data)
+  personService
+    .getAllPersons()
+    .then(initialPersons => {
+      setPersons(initialPersons)
     })
 },[])
 
-  //event handlers
   const handleFilterName = e => setFilterName(e.target.value)
   const handleNameChange = e => setNewName(e.target.value)
   const handleNumberChange = e => setNewNumber(e.target.value)
