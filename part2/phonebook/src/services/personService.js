@@ -17,5 +17,10 @@ const updatePerson = (id, newObject) => {
     return request.then(response => response.data)
 }
 
+const deletePerson = (id) => {
+    const request = axios.delete(`http://localhost:3001/persons/${id}`)
+    return request.then(response => response.data)
+}
 
-  export default { getAllPersons, createPerson, updatePerson }
+
+  export default { getAllPersons, createPerson, updatePerson, deletePerson }

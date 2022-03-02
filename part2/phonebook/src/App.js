@@ -44,6 +44,7 @@ useEffect(() => {
       <Persons 
         persons={persons} 
         filterName={filterName} 
+        setPersons={setPersons}
       />
     </div>
   )
