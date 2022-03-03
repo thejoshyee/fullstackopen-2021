@@ -24,7 +24,11 @@ export default function PersonForm(props) {
               }, 3000)
             })
             .catch(error => {
-              console.log("Error", error)
+              props.setDeleteMessage(`Information of ${existingPerson.name} has already been removed from the server!`)
+              props.setPersons(props.persons.filter(p => p.id !== existingPerson.id))
+              setTimeout(() => {
+                props.setDeleteMessage(null)
+              }, 3000)
             })
     
         } else if(!found) {
@@ -48,11 +52,11 @@ export default function PersonForm(props) {
       <form onSubmit={addNameAndNumber}>
           <h2>Add New Contact</h2>
             <div>
-              name: <input placeholder="Add New Person..." value={props.newName} onChange={props.handleNameChange}/>
+              Name: <input placeholder="Add New Person..." value={props.newName} onChange={props.handleNameChange}/>
             </div>
-               <div>number: <input placeholder="Phone Number..." value={props.newNumber} onChange={props.handleNumberChange}/> </div>
+               <div>Number: <input placeholder="Phone Number..." value={props.newNumber} onChange={props.handleNumberChange}/> </div>
             <div>
-            <button type="submit">add</button>
+            <button type="submit">Add Contact</button>
           </div>
       </form>
     </div>
