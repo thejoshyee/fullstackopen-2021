@@ -1,18 +1,22 @@
 import React from 'react'
-import { useEffect } from 'react'
 import personService from '../services/personService'
 
 export default function Persons(props) {
   
-  const deletePerson = (person) => {
-    if(window.confirm(`Delete ${person.name}?`))
+  const deletePersonBtn = (id, name) => {
+    if(window.confirm(`Delete ${name}?`)) {
       personService
-        .deletePerson(person.id)
-      personService
-        .getAllPersons()
-        .then(initialPersons => {
-          props.setPersons(initialPersons)
-        })
+      .deletePerson(id)
+      .then(() => {
+        props.setPersons(props.persons.filter(person => person.id !== id))
+      })
+      props.setDeleteMessage(`${name} has been deleted!`)
+      setTimeout(() => {
+        props.setDeleteMessage(null)
+      }, 3000) 
+    } else {
+      return false
+    }
   }
   
   const namesToShow = props.persons.filter(person => {
@@ -23,7 +27,7 @@ export default function Persons(props) {
       return true
     } 
   }).map(person => {
-      return <div key={person.name}>{person.name} {person.number} <button onClick={() => deletePerson(person)}>Delete</button></div>
+      return <div key={person.name}>{person.name} {person.number} <button onClick={() => deletePersonBtn(person.id, person.name)}>Delete</button></div>
     })
 
   return (

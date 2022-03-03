@@ -3,37 +3,44 @@ import personService from "../services/personService"
 
 export default function PersonForm(props) {
 
-
-
   const addNameAndNumber = e => {
-    e.preventDefault()
-    const found = props.persons.some(el => el.name === props.newName && el.number === props.newNumber)
-    const newPerson = {name: props.newName, number: props.newNumber}
-    const existingPerson = props.persons.filter(person => person.name === newPerson.name)[0]
-    console.log(existingPerson)
-
-    if(existingPerson) {
-      if(window.confirm(`${props.newName} is already added to phonebook, replease the old number with a new one?`))
-      personService
-        .updatePerson(existingPerson.id, newPerson)
-        .then(response => {
-          props.setPersons(props.persons.map(person => person.id !== existingPerson.id ? person : response))
-          alert(`Updated ${existingPerson.name}'s phone number.`)
-        })
-
-    } else if(!found) {
-      personService
-        .createPerson(newPerson)
-        .then(returnedPerson => {
-          props.setPersons(props.persons.concat(returnedPerson))
-          props.setNewName('')
-          props.setNewNumber('')
-        })
-
+    if(props.newName.length === 0 || props.newNumber.length === 0) {
+      alert("You can't have empty fields.")
     } else {
-      alert(`${props.newName} is already in the phone book!`)
-    }
+        e.preventDefault()
+        const found = props.persons.some(el => el.name === props.newName && el.number === props.newNumber)
+        const newPerson = {name: props.newName, number: props.newNumber}
+        const existingPerson = props.persons.filter(person => person.name === newPerson.name)[0]
     
+        if(existingPerson) {
+          if(window.confirm(`${props.newName} has already been added to your phonebook, replace the old number with the new one?`))
+          personService
+            .updatePerson(existingPerson.id, newPerson)
+            .then(response => {
+              props.setPersons(props.persons.map(person => person.id !== existingPerson.id ? person : response))
+              props.setUpdateMessage(`Updated ${existingPerson.name}'s phone number.`)
+              setTimeout(() => {
+                props.setUpdateMessage(null)
+              }, 3000)
+            })
+            .catch(error => {
+              console.log("Error", error)
+            })
+    
+        } else if(!found) {
+          personService
+            .createPerson(newPerson)
+            .then(returnedPerson => {
+              props.setPersons(props.persons.concat(returnedPerson))
+              props.setNewName('')
+              props.setNewNumber('')
+              props.setUpdateMessage(`Added ${returnedPerson.name} to your phonebook.`)
+              setTimeout(() => {
+                props.setUpdateMessage(null)
+              }, 3000)
+            }).catch(error => console.log("Error", error))
+        } 
+    }
   }
 
   return (
