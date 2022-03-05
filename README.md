@@ -1,4 +1,4 @@
-# University of Helsinki - Full Stack Open 2021
+# University of Helsinki - Full Stack Open 2022
 
 ## About
 >Deep Dive Into Modern Web Development
