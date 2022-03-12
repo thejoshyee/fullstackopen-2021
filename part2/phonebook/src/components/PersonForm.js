@@ -24,11 +24,11 @@ export default function PersonForm(props) {
               }, 3000)
             })
             .catch(error => {
-              props.setDeleteMessage(`Information of ${existingPerson.name} has already been removed from the server!`)
-              props.setPersons(props.persons.filter(p => p.id !== existingPerson.id))
+              props.setDeleteMessage(`${error.response.data.error}`)
+              // props.setPersons(props.persons.filter(p => p.id !== existingPerson.id))
               setTimeout(() => {
                 props.setDeleteMessage(null)
-              }, 3000)
+              }, 4000)
             })
     
         } else if(!found) {
@@ -42,8 +42,13 @@ export default function PersonForm(props) {
               setTimeout(() => {
                 props.setUpdateMessage(null)
               }, 3000)
-            }).catch(error => console.log("Error", error))
-        } 
+            }).catch(error => {
+                props.setDeleteMessage(`${error.response.data.error}`)
+                setTimeout(() => {
+                  props.setDeleteMessage(null)
+                }, 3000)
+            }
+            )} 
     }
   }
 
