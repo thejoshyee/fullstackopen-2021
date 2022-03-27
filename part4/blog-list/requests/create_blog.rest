@@ -2,12 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "How to be a full stack developer in 3 easy steps",
+    "title": "How to be dope",
     "author": "Josh Yee",
     "url": "www.joshyee.com/blog/how-to-be-awesome",
     "likes": 1000
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 12b80c7c4abe64e2ebeab5d60c5526084aefb34b
