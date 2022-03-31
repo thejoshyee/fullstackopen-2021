@@ -49,7 +49,7 @@ describe('adding entries', () => {
         await api
             .post('/api/blogs')
             .send(newBlog)
-            .expect(201)
+            .expect(200)
             .expect('Content-Type', /application\/json/)
 
         const response = await api.get('/api/blogs')
@@ -70,7 +70,7 @@ describe('adding entries', () => {
         const response = await api 
             .post('/api/blogs') 
             .send(newBlog)
-            .expect(201)
+            .expect(200)
             .expect('Content-Type', /application\/json/)
 
         expect(response.body.likes).toBeDefined()
@@ -95,6 +95,43 @@ describe('adding entries', () => {
 
 })
 
+describe('Deleting & Updating Functionality', () => {
+    const blogObjects = helper.intialBlogs
+
+    test('delete blog entries', async () => {
+        await api
+            .delete(`/api/blogs/${blogObjects[0]._id}`)
+            .expect(204)
+
+        const response = await api.get('/api/blogs')
+        const titles = response.body.map(r => r.title)
+
+        expect(response.body).toHaveLength(blogObjects.length - 1)
+        expect(titles).not.toContain(blogObjects[0].title)
+    })
+
+    test('update entries', async () => {
+
+        const update = {
+            title: 'How to be Awesome',
+            author: 'Josh Yee',
+            likes: 7,
+            url: 'www.joshyee.com'
+        }
+
+        const putResponse = await api
+            .put(`/api/blogs/${helper.intialBlogs[1]._id}`)
+            .send(update)
+            .expect(200)
+
+        expect(putResponse.body.title).toBe(update.title)
+        expect(putResponse.body.author).toBe(update.author)
+        expect(putResponse.body.likes).toBe(update.likes)
+        expect(putResponse.body.url).toBe(update.url)
+
+    })
+    
+})
 
 
 afterAll(() => {
