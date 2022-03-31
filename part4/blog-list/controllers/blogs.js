@@ -9,14 +9,21 @@ blogsRouter.get('/', (request, response) => {
         })
 })
 
-blogsRouter.post('/', (request, response) => {
-    const blog = new Blog(request.body)
+blogsRouter.post('/', async (request, response) => {
+    const body = request.body
 
-    blog
-        .save()
-        .then(result => {
-            response.status(201).json(result)
-        })
+    if(!body.title || !body.url) return response.status(400).json({ error: 'title or url is missing' })
+
+    const blog = new Blog({
+        title: body.title,
+        author: body.author,
+        url: body.url,
+        likes: body.likes
+    })
+
+    const savedBlog = await blog.save()
+    response.json(savedBlog.toJSON())
+    
 })
 
 module.exports = blogsRouter 
