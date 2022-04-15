@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "How to be dope",
+    "title": "How to be human",
     "author": "Josh Yee",
-    "url": "www.joshyee.com/blog/how-to-be-awesome",
-    "likes": 1000
+    "url": "www.joshyee.com/blog/how-to-be-dope",
+    "likes": 555
 }
