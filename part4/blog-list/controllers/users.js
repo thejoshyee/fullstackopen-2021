@@ -5,6 +5,18 @@ const User = require('../models/user')
 usersRouter.post('/', async (request, response) => {
     const { username, name, password } = request.body
 
+    //check pw and username provided and greater than 3 characters
+    if (!username || !password) {
+        return response.status(400).send({ message: 'Must provide both username and password' })
+    }
+    if (username.length < 3) {
+        return response.status(400).send({ message: 'Username is too short' })
+    }
+    if (password.length < 3) {
+        return response.status(400).send({ message: 'Password is too short' })
+    }
+
+    // check if user is existing in db
     const existingUser = await User.findOne({ username })
     if (existingUser) {
         return response.status(400).json({
