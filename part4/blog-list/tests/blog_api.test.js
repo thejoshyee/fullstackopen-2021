@@ -115,6 +115,15 @@ describe('adding entries', () => {
     }) 
 
     test('if new blog doesnt have title and url send 400 bad request', async () => {
+
+        const testUser = await new User({
+            username: 'joshyee',
+            passwordHash: await bcrypt.hash('password123', 10),
+        }).save()
+
+        const userForToken = { username: 'joshyee', id: testUser.id }
+        let token = jwt.sign(userForToken, process.env.SECRET)
+
         const newBlog = {
             author: 'Josh Lee',
             likes: 1, 
@@ -123,7 +132,7 @@ describe('adding entries', () => {
 
         await api 
             .post('/api/blogs')
-            .set('Authorization', 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2MjU5ZmRhZjhiN2EwYTc4MjE4YjhmOTkiLCJpYXQiOjE2NTAwNjQ5MzB9.eYi-K6HRngf7mg4BaoKnNE_zTTdhFV-jr8r3-UOpfg8')
+            .set('Authorization', `bearer ${token}`)
             .send(newBlog)
             .expect(400)
 
