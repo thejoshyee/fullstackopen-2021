@@ -1,0 +1,17 @@
+.user-message {
+    color: green;
+    background-color: lightgrey;
+    border: 2px solid green;
+    border-radius: 5px;
+    padding: 1em;
+
+}
+
+.login-message {
+    color: red;
+    background-color: lightgrey;
+    border: 2px solid red;
+    border-radius: 5px;
+    padding: 1em;
+
+}

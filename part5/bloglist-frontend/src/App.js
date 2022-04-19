@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
+import './css/styles.css'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -13,6 +14,7 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
+  const [loginMessage, setLoginMessage] = useState(null)
 
 
   useEffect(() => {
@@ -82,9 +84,9 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-        setErrorMessage('Wrong Credentials')
+        setLoginMessage('Wrong Credentials')
         setTimeout(() => {
-          setErrorMessage(null)
+          setLoginMessage(null)
         }, 5000)
     }
   }
@@ -92,7 +94,7 @@ const App = () => {
   const handleMessage = (message) => {
     setErrorMessage(message)
     setTimeout(() => {
-      setErrorMessage('')
+      setErrorMessage(null)
     }, 5000)
   }
 
@@ -132,7 +134,7 @@ const App = () => {
     try {
       const newBlog = await blogService.create(entry)
       setBlogs([...blogs, newBlog])
-      handleMessage(newBlog.title + 'has been created')
+      handleMessage(newBlog.title + ' has been created')
     } catch (e) {
       console.log(e)
     }
@@ -142,7 +144,20 @@ const App = () => {
   return (
     <div>
       <h2>Dope Blogs</h2>
-      <h2>{errorMessage}</h2>
+      {
+        errorMessage === null ?
+        <></>
+        :
+        <p class="user-message">{errorMessage}</p>
+      }
+
+      {
+        loginMessage === null ?
+        <></>
+        :
+        <p class="login-message">{loginMessage}</p>
+      }
+      
       {user === null ?
       loginForm() :
       <div>
