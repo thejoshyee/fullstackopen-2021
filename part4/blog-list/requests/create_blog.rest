@@ -1,12 +1,12 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2MjU5ZmRhZjhiN2EwYTc4MjE4YjhmOTkiLCJpYXQiOjE2NTAwNjQ5MzB9.eYi-K6HRngf7mg4BaoKnNE_zTTdhFV-jr8r3-UOpfg8
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2MjVkYjVlNzI5NGNmMGI4NzkwOWJkZjYiLCJpYXQiOjE2NTAzMjg0MjB9.nU5tA7XSEOWSJ9omUmR9CYxGTOartQXR8Qu7kpjT9yQ
 
  
 {
-    "title": "this is dope",
-    "author": "Josh Yee",
-    "url": "www.joshyee.com/blog/how-to-be-dope",
+    "title": "this is test 2",
+    "author": "test",
+    "url": "test",
     "likes": 555
 }
 
