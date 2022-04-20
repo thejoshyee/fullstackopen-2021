@@ -20,7 +20,6 @@ const App = () => {
 
   const noteFormRef = useRef()
 
-
   useEffect(() => {
     noteService
       .getAll()
@@ -133,6 +132,10 @@ const App = () => {
           />
         )}
       </ul>
+
+      <div>
+
+</div>
 
       <Footer />
     </div>
