@@ -13,14 +13,30 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
   const [loginMessage, setLoginMessage] = useState(null)
+  const [added, setAdded] = useState(false)
 
   const blogFormRef = useRef()
 
+  const sortedBlogs = blogs.sort((a,b) => {
+    return b.likes - a.likes
+  })
+
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )  
+    const fetchData = async () => {
+      const initialBlogs = await blogService.getAll()
+      setBlogs(initialBlogs)
+    }
+    fetchData()
   }, [])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const initialBlogs = await blogService.getAll()
+      setBlogs(initialBlogs)
+    }
+    fetchData()
+  }, [added])
+
   
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
@@ -98,21 +114,48 @@ const App = () => {
 
   const createBlog = async (entry) => {
     try {
+
       blogFormRef.current.toggleVisibility()
+
       const newBlog = await blogService.create(entry)
-      setBlogs([...blogs, newBlog])
       handleMessage(newBlog.title + ' has been created')
+      setBlogs(blogs.concat(newBlog))
+      setAdded(true)
+      setAdded(false)
     } catch (e) {
       console.log(e)
     }
   }
 
   const blogForm = () => (
-    <Togglable buttonLabel='new blog' ref={blogFormRef}>
+    <Togglable buttonLabel='Add Blog' closeLabel="Cancel" ref={blogFormRef}>
       <BlogForm createBlog={createBlog} />
     </Togglable>
   )
 
+  const handleLike = async (post) => {
+    try {
+      post.likes += 1
+      const response = await blogService.update(post.id, post)
+      const newBlogs = blogs.map(item => {
+        return item.id === post.id ? response : item
+      })
+
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const handleDelete = async (post) => {
+    try {
+      window.confirm(`Do you really want to delete ${post.title}?`)
+      await blogService.remove(post.id)
+      const remainingBlogs = blogs.filter(item => item.id !== post.id)
+      setBlogs(remainingBlogs)
+    } catch (e) {
+        console.log(e)
+    }
+  }
 
   return (
     <div>
@@ -121,28 +164,34 @@ const App = () => {
         errorMessage === null ?
         <></>
         :
-        <p class="user-message">{errorMessage}</p>
+        <p className="user-message">{errorMessage}</p>
       }
 
       {
         loginMessage === null ?
         <></>
         :
-        <p class="login-message">{loginMessage}</p>
+        <p className="login-message">{loginMessage}</p>
       }
       
       {user === null ?
       loginForm() :
       <div>
 
-        <p>{user.name} logged-in {logout()}</p>
+        <div>{user.name} logged-in {logout()}</div>
         <div>
           {blogForm()}
         </div>
 
         <div>
-          {blogs.map(blog =>
-            <Blog key={blog.id} blog={blog} />)
+          {sortedBlogs.map(blog =>
+            <Blog 
+              key={blog.id} 
+              blog={blog} 
+              currentUser={user} 
+              handleLike={handleLike} 
+              handleDelete={handleDelete} 
+            />)
           }
         </div>
 
