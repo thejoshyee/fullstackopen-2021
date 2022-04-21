@@ -29,7 +29,7 @@ const App = () => {
     fetchData()
   }, [addedBlog])
 
-  
+
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
     if (loggedUserJSON) {
@@ -43,7 +43,7 @@ const App = () => {
     <form onSubmit={handleLogin}>
       <div>
         username
-          <input
+        <input
           type="text"
           value={username}
           name="Username"
@@ -52,7 +52,7 @@ const App = () => {
       </div>
       <div>
         password
-          <input
+        <input
           type="password"
           value={password}
           name="Password"
@@ -60,7 +60,7 @@ const App = () => {
         />
       </div>
       <button type="submit">login</button>
-    </form>      
+    </form>
   )
 
   const logout = () => (
@@ -90,10 +90,10 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-        setLoginMessage('Wrong Credentials')
-        setTimeout(() => {
-          setLoginMessage(null)
-        }, 5000)
+      setLoginMessage('Wrong Credentials')
+      setTimeout(() => {
+        setLoginMessage(null)
+      }, 5000)
     }
   }
 
@@ -126,21 +126,21 @@ const App = () => {
   )
 
 
-    const handleLike = async (blog) => {
-      try {
-        blog.likes += 1
-        const likedBlog = await blogService.update(blog.id, blog)
-        setBlogs(blogs.map(blog => 
-          blog.id === likedBlog.id ?
+  const handleLike = async (blog) => {
+    try {
+      blog.likes += 1
+      const likedBlog = await blogService.update(blog.id, blog)
+      setBlogs(blogs.map(blog =>
+        blog.id === likedBlog.id ?
           { ...blog, likes: likedBlog.likes }
-          : blog 
-          ))
-      } catch (e) {
-        console.log(e)
-      }
+          : blog
+      ))
+    } catch (e) {
+      console.log(e)
     }
+  }
 
-    
+
   const handleDelete = async (post) => {
     try {
       window.confirm(`Do you really want to delete ${post.title}?`)
@@ -148,7 +148,7 @@ const App = () => {
       const remainingBlogs = blogs.filter(item => item.id !== post.id)
       setBlogs(remainingBlogs)
     } catch (e) {
-        console.log(e)
+      console.log(e)
     }
   }
 
@@ -157,41 +157,41 @@ const App = () => {
       <h2>Some Dope Blogs</h2>
       {
         errorMessage === null ?
-        <></>
-        :
-        <p className="user-message">{errorMessage}</p>
+          <></>
+          :
+          <p className="user-message">{errorMessage}</p>
       }
 
       {
         loginMessage === null ?
-        <></>
-        :
-        <p className="login-message">{loginMessage}</p>
+          <></>
+          :
+          <p className="login-message">{loginMessage}</p>
       }
-      
+
       {user === null ?
-      loginForm() :
-      <div>
-
-        <div>{user.name} logged-in {logout()}</div>
+        loginForm() :
         <div>
-          {blogForm()}
-        </div>
 
-        <div>
-          {sortedBlogs.map(blog =>
-            <Blog 
-              key={blog.id} 
-              blog={blog} 
-              loggedUser={user} 
-              handleLike={handleLike} 
-              handleDelete={handleDelete} 
-            />)
-          }
-        </div>
+          <div>{user.name} logged-in {logout()}</div>
+          <div>
+            {blogForm()}
+          </div>
 
-      </div>
-    }
+          <div>
+            {sortedBlogs.map(blog =>
+              <Blog
+                key={blog.id}
+                blog={blog}
+                loggedUser={user}
+                handleLike={handleLike}
+                handleDelete={handleDelete}
+              />)
+            }
+          </div>
+
+        </div>
+      }
     </div>
   )
 }
