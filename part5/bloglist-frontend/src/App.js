@@ -13,7 +13,7 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
   const [loginMessage, setLoginMessage] = useState(null)
-  const [added, setAdded] = useState(false)
+  const [addedBlog, setAddedBlog] = useState(false)
 
   const blogFormRef = useRef()
 
@@ -27,15 +27,7 @@ const App = () => {
       setBlogs(initialBlogs)
     }
     fetchData()
-  }, [])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const initialBlogs = await blogService.getAll()
-      setBlogs(initialBlogs)
-    }
-    fetchData()
-  }, [added])
+  }, [addedBlog])
 
   
   useEffect(() => {
@@ -120,8 +112,8 @@ const App = () => {
       const newBlog = await blogService.create(entry)
       handleMessage(newBlog.title + ' has been created')
       setBlogs(blogs.concat(newBlog))
-      setAdded(true)
-      setAdded(false)
+      setAddedBlog(true)
+      setAddedBlog(false)
     } catch (e) {
       console.log(e)
     }
@@ -133,19 +125,22 @@ const App = () => {
     </Togglable>
   )
 
-  const handleLike = async (post) => {
-    try {
-      post.likes += 1
-      const response = await blogService.update(post.id, post)
-      const newBlogs = blogs.map(item => {
-        return item.id === post.id ? response : item
-      })
 
-    } catch (e) {
-      console.log(e)
+    const handleLike = async (blog) => {
+      try {
+        blog.likes += 1
+        const likedBlog = await blogService.update(blog.id, blog)
+        setBlogs(blogs.map(blog => 
+          blog.id === likedBlog.id ?
+          { ...blog, likes: likedBlog.likes }
+          : blog 
+          ))
+      } catch (e) {
+        console.log(e)
+      }
     }
-  }
 
+    
   const handleDelete = async (post) => {
     try {
       window.confirm(`Do you really want to delete ${post.title}?`)
@@ -188,7 +183,7 @@ const App = () => {
             <Blog 
               key={blog.id} 
               blog={blog} 
-              currentUser={user} 
+              loggedUser={user} 
               handleLike={handleLike} 
               handleDelete={handleDelete} 
             />)
