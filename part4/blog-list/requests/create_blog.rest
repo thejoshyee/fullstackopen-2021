@@ -1,12 +1,13 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2MjVkYjVlNzI5NGNmMGI4NzkwOWJkZjYiLCJpYXQiOjE2NTAzMjg0MjB9.nU5tA7XSEOWSJ9omUmR9CYxGTOartQXR8Qu7kpjT9yQ
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVsaGFiIiwiaWQiOiI2MjYwYWJmNWJkOTU0ZmVmYzliYjViMmYiLCJpYXQiOjE2NTA1MDI2Njd9.8Fy3vE6FilUlOmDpHiWu2dC9jC-r7N46G6D61xyh_TM
+# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2MjVkYjVlNzI5NGNmMGI4NzkwOWJkZjYiLCJpYXQiOjE2NTAzMjg0MjB9.nU5tA7XSEOWSJ9omUmR9CYxGTOartQXR8Qu7kpjT9yQ
 
  
 {
-    "title": "this is test 2",
-    "author": "test",
-    "url": "test",
-    "likes": 555
+    "title": "How to blog 101",
+    "author": "Josh Yee",
+    "url": "www.google.com",
+    "likes": 777
 }
 
