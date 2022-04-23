@@ -1,9 +1,8 @@
 import React from 'react'
 import Togglable from './Toggable'
-import PropTypes from 'prop-types'
 
 
-const Blog = ({ blog, loggedUser, handleLike, handleDelete }) => {
+const Blog = ({ blog, handleLike, handleDelete }) => {
 
 
   const blogStyle = {
