@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 const Blog = ({ blog, loggedUser, handleLike, handleDelete }) => {
 
-  
+
   const blogStyle = {
     display: 'block',
     paddingLeft: 5,
@@ -29,41 +29,40 @@ const Blog = ({ blog, loggedUser, handleLike, handleDelete }) => {
   }
 
   return (
-    <div style={blogStyle}> 
+    <div style={blogStyle}>
 
-        <div style={viewStyle}>{blog.title} by {blog.author} 
+      <div style={viewStyle}>{blog.title} by {blog.author}
 
-          <Togglable closeLabel="hide" buttonLabel="view" >
-            <div>{blog.url}</div>
-            <div>
-              <p style={likesStyle}>Likes: {blog.likes}</p> 
-              <button className="likebutton" onClick={() => handleLike(blog)}>
+        <Togglable closeLabel="hide" buttonLabel="view" >
+          <div>{blog.url}</div>
+          <div>
+            <p style={likesStyle}>Likes: {blog.likes}</p>
+            <button className="likebutton" onClick={() => handleLike(blog)}>
                 Like
-              </button>
-              <div>Added by {blog.user.name} ({blog.user.username})</div>
-            </div>
+            </button>
+            <div>Added by {blog.user.name} ({blog.user.username})</div>
+          </div>
 
-            {blog.user.username === loggedUser.username ? (
+          {/* {blog.user.username === loggedUser.username ? ( */}
+
+
+          {blog.user.username ? (
             <button
-                onClick={() => handleDelete(blog)}
-              >
+              onClick={() => handleDelete(blog)}
+            >
                 Delete
-              </button>
-            ) : (
-              ''
-            )}
+            </button>
+          ) : (
+            ''
+          )}
 
-          </Togglable> 
+        </Togglable>
 
-        </div>
+      </div>
 
     </div>
   )
 }
 
-Blog.propTypes = {
-  handleLike: PropTypes.func.isRequired,
-  handleDelete: PropTypes.func.isRequired,
-}
 
 export default Blog
