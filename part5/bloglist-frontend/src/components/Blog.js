@@ -28,36 +28,38 @@ const Blog = ({ blog, handleLike, handleDelete }) => {
   }
 
   return (
-    <div style={blogStyle}>
+    <div id='blogWrapper' style={blogStyle}>
 
-      <div style={viewStyle}>{blog.title} by {blog.author}
-
-        <Togglable closeLabel="hide" buttonLabel="view" >
-          <div>{blog.url}</div>
-          <div>
-            <p style={likesStyle}>Likes: {blog.likes}</p>
-            <button className='likeButton' onClick={() => handleLike(blog)}>
-                Like
-            </button>
-            <div>Added by {blog.user.name} ({blog.user.username})</div>
-          </div>
-
-          {/* {blog.user.username === loggedUser.username ? ( */}
-
-
-          {blog.user.username ? (
-            <button
-              onClick={() => handleDelete(blog)}
-            >
-                Delete
-            </button>
-          ) : (
-            ''
-          )}
-
-        </Togglable>
-
+      <div id='blogTitle' style={viewStyle}>{blog.title} by {blog.author}
       </div>
+
+      <Togglable closeLabel="hide" buttonLabel="view" >
+        <div>{blog.url}</div>
+        <div>
+          <p id='likesCount' style={likesStyle}>Likes: {blog.likes}</p>
+          <button id='likeButton' onClick={() => handleLike(blog)}>
+                Like
+          </button>
+          <div>Added by {blog.user.name} ({blog.user.username})</div>
+        </div>
+
+        {/* {blog.user.username === loggedUser.username ? ( */}
+
+
+        {blog.user.username ? (
+          <button
+            id='deleteButton'
+            onClick={() => handleDelete(blog)}
+          >
+                Delete
+          </button>
+        ) : (
+          ''
+        )}
+
+      </Togglable>
+
+
 
     </div>
   )
