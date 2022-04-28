@@ -19,9 +19,8 @@ const Anecdote = ({ anecdote, handleClick }) => {
 // container component
 const AnecdoteList = () => {
     const dispatch = useDispatch()
-    const anecdotes = useSelector(state => state)
-
-    const sortedAnecdotes = anecdotes.sort((a,b) => b.votes - a.votes)
+    const anecdotes = useSelector(state => state.anecdotes)
+    const sortedAnecdotes = anecdotes.slice().sort((min, max) => max.votes - min.votes)
 
     return (
         <div>
