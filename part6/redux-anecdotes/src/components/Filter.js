@@ -1,30 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { filterText } from '../reducers/filterReducer'
+import { setFilter } from '../reducers/filterReducer'
 
-const Filter = props => {
+const Filter = (props) => {
+  const handleChange = (event) => {
+    props.setFilter(event.target.value)
+  }
+  const style = {
+    marginBottom: 10
+  }
 
-    const handleChange = event => {
-        props.filterText(event.target.value)
-    }
-
-    return (
-        <div>
-            Filter <input onChange={handleChange} />
-        </div>
-    )
+  return (
+    <div style={style}>
+      filter <input onChange={handleChange} />
+    </div>
+  )
 }
 
-const mapStateToProps = state => {
-    return {
-        filter: state.filter
-    }
-}
-
-const mapDispatchToProps = {
-    filterText
-}
-
-const connectedFilter = connect(mapStateToProps, mapDispatchToProps)(Filter)
-
-export default connectedFilter
+export default connect(null, { setFilter })(Filter)
