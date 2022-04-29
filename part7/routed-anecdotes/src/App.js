@@ -9,6 +9,7 @@ import {
   useNavigate,
   useMatch
 } from 'react-router-dom'
+import { useField } from './hooks/index'
 
 const Menu = () => {
   const padding = {
@@ -60,22 +61,29 @@ const Footer = () => (
 )
 
 const CreateNew = (props) => {
-  const [content, setContent] = useState('')
-  const [author, setAuthor] = useState('')
-  const [info, setInfo] = useState('')
+
+  const content = useField('text')
+  const author = useField('text')
+  const info = useField('text')
 
   const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault()
     props.addNew({
-      content,
-      author,
-      info,
+      content: content.input.value,
+      author: author.input.value,
+      info: info.input.value,
       votes: 0
     })
     navigate('/')
+  }
 
+  const handleReset = (e) => {
+    e.preventDefault()
+    content.reset()
+    author.reset()
+    info.reset()
   }
 
   return (
@@ -84,17 +92,18 @@ const CreateNew = (props) => {
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input name='content' value={content} onChange={(e) => setContent(e.target.value)} />
+          <input {...content.input } />
         </div>
         <div>
           author
-          <input name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
+          <input {...author.input } />
         </div>
         <div>
           url for more info
-          <input name='info' value={info} onChange={(e)=> setInfo(e.target.value)} />
+          <input {...info.input } />
         </div>
-        <button>create</button>
+        <button>Create</button>
+        <button onClick={handleReset}>Reset</button>
       </form>
     </div>
   )
@@ -140,6 +149,7 @@ const App = () => {
   ])
 
   const [notification, setNotification] = useState('')
+
 
   const addNew = (anecdote) => {    
     anecdote.id = Math.round(Math.random() * 10000)
