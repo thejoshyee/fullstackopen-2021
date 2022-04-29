@@ -1,36 +1,33 @@
-import { createSlice } from '@reduxjs/toolkit'
-const getId = () => (100000 * Math.random()).toFixed(0)
+export const showNotification = (notificationText, time) => {
+  window.clearTimeout(window.timeout)
 
-const notificationsToStart = ['this is a notification', 'hello']
+  return async dispatch => {
+    dispatch({
+      type: 'SHOW',
+      data: notificationText
+    })
 
-const asObject = (notification) => {
-    return {
-      content: notification,
-      id: getId()
-    }
+    window.timeout = setTimeout(
+      () => dispatch(hideNotification()),
+      time * 1000
+    )
   }
-  
-const initialState = notificationsToStart.map(asObject)
+}
 
-const notificationSlice = createSlice({
-    name: 'notification',
-    initialState,
-    reducers: {
-      setNotification(state, action) {
-        const content = action.payload
-        state.push({
-            content,
-            id: getId()
-        })
-      },
-      emptyNotification(state, action) {
-        const content = action.payload
-        state.push({
-          content,
-        })
-      }
-    }
-  })
-  
-  export const { setNotification, emptyNotification } = notificationSlice.actions
-  export default notificationSlice.reducer
+
+const hideNotification = () => ({
+  type: 'HIDE'
+})
+
+const notificationReducer = (state = null,  action) => {
+  switch (action.type) {
+    case 'SHOW': 
+      return action.data
+    case 'HIDE':
+      return null
+    default:
+      return state
+  }
+}
+
+export default notificationReducer
