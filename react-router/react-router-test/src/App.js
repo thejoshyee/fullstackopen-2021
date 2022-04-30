@@ -1,16 +1,19 @@
-import ReactDOM from 'react-dom/client'
 import { useState } from 'react'
+// import { Table, Form, Button, Alert, Navbar, Nav } from 'react-bootstrap'
+import { Container, TableContainer, Table, TableBody, TableRow, TableCell, TextField, AppBar, Toolbar, IconButton, Alert, Paper } from '@mui/material'
+import styled from 'styled-components'
+
 
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
   Link,
   Navigate,
-  useParams,
   useNavigate,
   useMatch
 } from "react-router-dom"
+
+
 
 
 const Home = () => (
@@ -34,13 +37,23 @@ const Note = ({ note }) => {
 const Notes = ({ notes }) => (
   <div>
     <h2>Notes</h2>
-    <ul>
-      {notes.map(note =>
-        <li key={note.id}>
-          <Link to={`/notes/${note.id}`}>{note.content}</Link>
-        </li>
-      )}
-    </ul>
+
+    <TableContainer component={Paper}>
+      <Table>
+        <TableBody>
+          {notes.map(note => (
+            <TableRow key={note.id}>
+              <TableCell>
+                <Link to={`/notes/${note.id}`}>{note.content}</Link>
+              </TableCell>
+              <TableCell>
+                {note.user}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   </div>
 )
 
@@ -69,16 +82,49 @@ const Login = (props) => {
       <h2>login</h2>
       <form onSubmit={onSubmit}>
         <div>
-          username: <input />
+          username:
+          <Input />
         </div>
         <div>
-          password: <input type='password' />
+          password:
+          <Input type='password' />
         </div>
-        <button type="submit">login</button>
+        <div>
+        <Button type="submit" primary=''>login</Button>
+        </div>
       </form>
     </div>
   )
 }
+
+const Button = styled.button`
+  background: Bisque;
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid Chocolate;
+  border-radius: 3px;
+`
+
+const Input = styled.input`
+  margin: 0.25em;
+`
+
+const Page = styled.div`
+  padding: 1em;
+  background: papayawhip;
+`
+
+const Navigation = styled.div`
+  background: BurlyWood;
+  padding: 1em;
+`
+
+const Footer = styled.div`
+  background: Chocolate;
+  padding: 1em;
+  margin-top: 1em;
+`
 
 const App = () => {
   const [notes, setNotes] = useState([
@@ -103,6 +149,7 @@ const App = () => {
   ])
 
   const [user, setUser] = useState(null)
+  const [message, setMessage] = useState(null)
 
   const match = useMatch('/notes/:id')
 
@@ -113,6 +160,10 @@ const App = () => {
 
   const login = (user) => {
     setUser(user)
+    setMessage(`welcome ${user}`)
+    setTimeout(() => {
+      setMessage(null)
+    }, 10000)
   }
 
   const padding = {
@@ -120,28 +171,29 @@ const App = () => {
   }
 
   return (
-    <div>
-      <div>
-        <Link style={padding} to="/">home</Link>
-        <Link style={padding} to="/notes">notes</Link>
-        <Link style={padding} to="/users">users</Link>
-        {user
-          ? <em>{user} logged in</em>
-          : <Link style={padding} to="/login">login</Link>
-        }
-      </div>
-      <Routes>
-        <Route path="/notes/:id" element={<Note note={note} />} />
-        <Route path="/notes" element={<Notes notes={notes} />} />
-        <Route path="/users" element={user ? <Users /> : <Navigate replace to="/login" />} />
-        <Route path="/login" element={<Login onLogin={login} />} />
-        <Route path="/" element={<Home />} />
-      </Routes>
-      <div>
-        <br />
-        <em>Note app, Department of Computer Science 2022</em>
-      </div>
-    </div>
+    <Page>
+    <Navigation>
+      <Link style={padding} to="/">home</Link>
+      <Link style={padding} to="/notes">notes</Link>
+      <Link style={padding} to="/users">users</Link>
+      {user
+        ? <em>{user} logged in</em>
+        : <Link style={padding} to="/login">login</Link>
+      }
+    </Navigation>
+    
+    <Routes>
+      <Route path="/notes/:id" element={<Note note={note} />} />  
+      <Route path="/notes" element={<Notes notes={notes} />} />   
+      <Route path="/users" element={user ? <Users /> : <Navigate replace to="/login" />} />
+      <Route path="/login" element={<Login onLogin={login} />} />
+      <Route path="/" element={<Home />} />      
+    </Routes>
+
+    <Footer>
+      <em>Note app, Department of Computer Science 2022</em>
+    </Footer>
+  </Page>
   )
 }
 
