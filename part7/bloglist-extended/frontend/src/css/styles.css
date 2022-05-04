@@ -1,0 +1,38 @@
+.user-message {
+    color: green;
+    background-color: lightgrey;
+    border: 2px solid green;
+    border-radius: 5px;
+    padding: 1em;
+
+}
+
+.login-message {
+    color: red;
+    background-color: lightgrey;
+    border: 2px solid red;
+    border-radius: 5px;
+    padding: 1em;
+
+}
+
+.title-wrapper {
+    display: flex;
+    gap: 2.5em;
+    font-weight: 800;
+}
+
+.userlist-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.details-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.blog-amt {
+    margin-left: 1em;
+    text-align: right;
+}
