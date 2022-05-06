@@ -9,11 +9,16 @@ import Togglable from './components/Toggable'
 import blogService from './services/blogs'
 import loginService from './services/login'
 import userService from './services/users'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import UserList from './components/UserList'
+import BlogList from './components/BlogList'
+
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
   const [notification, setNotification] = useState(null)
+  const [allUsers, setAllUsers] = useState([])
   const blogFormRef = useRef()
   const byLikes = (b1, b2) => b2.likes>b1.likes ? 1 : -1
 
@@ -22,6 +27,12 @@ const App = () => {
       setBlogs( blogs.sort(byLikes) )
     )
   }, [])
+
+  useEffect(() => {
+    userService.getAll().then(users =>
+      setAllUsers(users)
+    )
+  }, [allUsers])
 
   useEffect(() => {
     const userFromStorage = userService.getUser()
@@ -123,18 +134,11 @@ const App = () => {
         />
       </Togglable>
 
-      <div id='blogs'>
-        {blogs.map(blog =>
-          <Blog
-            key={blog.id}
-            blog={blog}
-            likeBlog={likeBlog}
-            removeBlog={removeBlog}
-            user={user}
-          />
-        )}
-      </div>
+      <UserList users={allUsers} />
+
     </div>
+
+    
   )
 }
 
