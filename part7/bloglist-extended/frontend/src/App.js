@@ -1,18 +1,29 @@
+import React from 'react'
 import { useState, useEffect, useRef } from 'react'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  Navigate,
+  useNavigate,
+  useMatch
+} from "react-router-dom"
 
+import blogService from './services/blogs'
+import loginService from './services/login'
+import userService from './services/users'
+
+import BlogList from './components/BlogList'
+import UserList from './components/UserList'
+import Home from './components/Home'
 import Blog from './components/Blog'
 import LoginForm from './components/LoginForm'
 import NewBlogForm from './components/NewBlogForm'
 import Notification from './components/Notification'
 import Togglable from './components/Toggable'
-
-import blogService from './services/blogs'
-import loginService from './services/login'
-import userService from './services/users'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import UserList from './components/UserList'
-import BlogList from './components/BlogList'
-
+import LoggedIn from './components/LoggedIn'
+import User from './components/User'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -32,7 +43,7 @@ const App = () => {
     userService.getAll().then(users =>
       setAllUsers(users)
     )
-  }, [allUsers])
+  }, [])
 
   useEffect(() => {
     const userFromStorage = userService.getUser()
@@ -59,55 +70,15 @@ const App = () => {
     notify('good bye!')
   }
 
-  const createBlog = async (blog) => {
-    blogService.create(blog).then(createdBlog => {
-      notify(`a new blog '${createdBlog.title}' by ${createdBlog.author} added`)
-      setBlogs(blogs.concat(createdBlog))
-      blogFormRef.current.toggleVisibility()
-    }).catch(error => {
-      notify('creating a blog failed: ' + error.response.data.error, 'alert')
-    })
-  }
-
-  const removeBlog = (id) => {
-    const toRemove = blogs.find(b => b.id === id)
-
-    const ok = window.confirm(`remove '${toRemove.title}' by ${toRemove.author}?`)
-
-    if (!ok) {
-      return
-    }
-
-    blogService.remove(id).then(() => {
-      const updatedBlogs = blogs
-        .filter(b => b.id!==id)
-        .sort(byLikes)
-      setBlogs(updatedBlogs)
-    })
-  }
-
-  const likeBlog = async (id) => {
-    const toLike = blogs.find(b => b.id === id)
-    const liked = {
-      ...toLike,
-      likes: (toLike.likes||0) + 1,
-      user: toLike.user.id
-    }
-
-    blogService.update(liked.id, liked).then(updatedBlog => {
-      notify(`you liked '${updatedBlog.title}' by ${updatedBlog.author}`)
-      const updatedBlogs = blogs
-        .map(b => b.id===id ? updatedBlog : b)
-        .sort(byLikes)
-      setBlogs(updatedBlogs)
-    })
-  }
-
   const notify = (message, type='info') => {
     setNotification({ message, type })
     setTimeout(() => {
       setNotification(null)
     }, 5000)
+  }
+
+  const padding = {
+    padding: 5
   }
 
   if (user === null) {
@@ -119,27 +90,28 @@ const App = () => {
 
   return (
     <div>
-      <h2>blogs</h2>
+      <Router>
+        <div>
+          <Link style={padding} to="/">Home</Link>
+          <Link style={padding} to="/users">Users</Link>
+          <Link style={padding} to="/blogs">Blogs</Link>
+        </div>
 
-      <Notification notification={notification} />
+        <LoggedIn user={user} logout={logout} />
 
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/users" element={<UserList users={allUsers}/>} />
+          <Route path="/blogs" element={<BlogList blogs={blogs} user={user}/>} />
+          <Route path="/blogs/:id" element={<Blog blogs={blogs} user={user} blogFormRef={blogFormRef} setBlogs={setBlogs} setNotification={setNotification} />} />
+          <Route path="/users/:id" element={<User allUsers={allUsers} />} />        
+        </Routes>
+      </Router>
       <div>
-        {user.name} logged in
-        <button onClick={logout}>logout</button>
+        <i>Bloglist App 2022</i>
       </div>
-
-      <Togglable buttonLabel='new note' ref={blogFormRef}>
-        <NewBlogForm
-          onCreate={createBlog}
-        />
-      </Togglable>
-
-      <UserList users={allUsers} />
-
     </div>
-
-    
-  )
+  );
 }
 
-export default App
+export default App;

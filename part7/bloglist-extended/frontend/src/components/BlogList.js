@@ -10,7 +10,7 @@ const BlogList = (props) => {
     }
     return (
         <div>
-        <h2 className="text-4xl">Blogs</h2>
+        <h2>Blogs</h2>
         <Togglable buttonLabel="Add Blog">
             <BlogForm />
         </Togglable>
