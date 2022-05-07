@@ -5,9 +5,6 @@ import {
   Routes,
   Route,
   Link,
-  Navigate,
-  useNavigate,
-  useMatch
 } from "react-router-dom"
 
 import blogService from './services/blogs'
@@ -19,9 +16,7 @@ import UserList from './components/UserList'
 import Home from './components/Home'
 import Blog from './components/Blog'
 import LoginForm from './components/LoginForm'
-import NewBlogForm from './components/NewBlogForm'
 import Notification from './components/Notification'
-import Togglable from './components/Toggable'
 import LoggedIn from './components/LoggedIn'
 import User from './components/User'
 
@@ -77,6 +72,14 @@ const App = () => {
     }, 5000)
   }
 
+  const createComment = async (id, blog) => {
+    const updatedBlog = await blogService.comment(id, blog);
+    setBlogs(
+      blogs.map((blog) => (blog.id === updatedBlog.id ? updatedBlog : blog))
+    );
+  };
+
+
   const padding = {
     padding: 5
   }
@@ -96,14 +99,15 @@ const App = () => {
           <Link style={padding} to="/users">Users</Link>
           <Link style={padding} to="/blogs">Blogs</Link>
         </div>
+        <h1>Dope ass blogs</h1>
 
         <LoggedIn user={user} logout={logout} />
 
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/users" element={<UserList users={allUsers}/>} />
-          <Route path="/blogs" element={<BlogList blogs={blogs} user={user}/>} />
-          <Route path="/blogs/:id" element={<Blog blogs={blogs} user={user} blogFormRef={blogFormRef} setBlogs={setBlogs} setNotification={setNotification} />} />
+          <Route path="/blogs" element={<BlogList blogs={blogs} user={user} notify={notify} setBlogs={setBlogs} />} />
+          <Route path="/blogs/:id" element={<Blog createComment={createComment} blogs={blogs} user={user} blogFormRef={blogFormRef} setBlogs={setBlogs} setNotification={setNotification} notify={notify} />} />
           <Route path="/users/:id" element={<User allUsers={allUsers} />} />        
         </Routes>
       </Router>

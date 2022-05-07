@@ -2,11 +2,12 @@ const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
 const jwt = require('jsonwebtoken')
 const middleware = require('../utils/middleware')
+const Comment = require('../models/comment')
 
 
 blogsRouter.get('/', async (request, response) => {
     const blogs = await Blog
-        .find({}).populate('user', { username: 1, name: 1 })
+        .find({}).populate('user', { username: 1, id: 1, name: 1 }).populate('comments', { comment: 1, id: 1, name: 1, username: 1 })
 
     response.json(blogs)
 
@@ -37,14 +38,6 @@ blogsRouter.delete('/:id', middleware.userExtractor, async (request, response) =
     } 
 
 })
-
-// const getTokenFrom = request => {
-//     const authorization = request.get('authorization')
-//     if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-//         return authorization.substring(7)
-//     }
-//     return null
-// }
 
 
 blogsRouter.post('/', middleware.userExtractor, async (request, response) => {
@@ -81,8 +74,15 @@ blogsRouter.post('/', middleware.userExtractor, async (request, response) => {
         if (error.name === 'JsonWebTokenError')
             response.status(401).json({ error: 'token missing or invalid' })
     } 
-    
 })
+
+blogsRouter.post("/:id/comments", async (request, response) => {  
+    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id)
+    updatedBlog.comments = updatedBlog.comments.concat(request.body.comment);
+    updatedBlog.save()
+    response.status(200).json(updatedBlog)
+  });
+
 
 
 blogsRouter.put('/:id', async (request, response) => {
@@ -92,10 +92,13 @@ blogsRouter.put('/:id', async (request, response) => {
         title: body.title,
         author: body.author,
         url: body.url,
-        likes: body.likes
+        likes: body.likes,
+        comments: body.comments,
     }
 
     const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
+        .populate('user', { username: 1, id: 1, name: 1 })
+        .populate('comments', { comment: 1, id: 1, name: 1, username: 1 })
     response.json(updatedBlog)
 
 })

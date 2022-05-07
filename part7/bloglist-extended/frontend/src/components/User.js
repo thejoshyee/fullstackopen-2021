@@ -8,6 +8,10 @@ const User = (props) => {
 
     const user = props.allUsers.find((user) => user.id === id)
 
+    if (!user) {
+        return null
+      }
+
     return (
         <div>
             <h2>Blogs added by {user.name} </h2>
