@@ -7,9 +7,10 @@ const UserList = (props) => {
         <div>
             <h2>Users</h2>
             {props.users.map(user => (
-                <Link key={user.id} to={'/users/' + user.id}>
-                    <p>{user.name} {user.blogs.length} Blogs</p>
-                </Link>
+                <div key={user.id}>
+                    <Link to={'/users/' + user.id}>{user.name}</Link>
+                    <p>{user.blogs.length} Blogs</p>
+                </div>
                 ))}
         </div>
     )

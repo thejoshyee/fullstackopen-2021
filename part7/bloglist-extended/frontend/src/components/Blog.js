@@ -1,17 +1,16 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import blogService from '../services/blogs'
 import { nanoid } from 'nanoid'
-import blogs from '../services/blogs'
 import CommentForm from './CommentForm'
+import React from 'react'
 
 const Blog = (props) => {
-  
+
   const id = useParams().id
   const blog = props.blogs.find((blog) => blog.id === id)
   const navigate = useNavigate()
 
   if (!blog) {
-    props.setNotification('Blog you tried to access was not found')
     return null
 }
 
@@ -41,7 +40,21 @@ const Blog = (props) => {
       console.log(e)
     }
   }
-  console.log(blog)
+
+  const createComment = async (id, blog) => {
+    try {
+      const updatedBlog = await blogService.comment(id, blog);
+      props.notify(`Comment Added!`)
+      props.setBlogs(
+        props.blogs.map(blog => (blog.id === updatedBlog.id ? 
+        { ...blog, comments: updatedBlog.comments } 
+        : blog
+        ))
+      )
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   return (
     <div id='blogWrapper'>
@@ -69,15 +82,16 @@ const Blog = (props) => {
         )}
 
         <h3>Comments</h3>
-        <CommentForm createComment={props.createComment} blogs={props.blogs} setBlogs={props.setBlogs} />
         <ul>
-        
         {blog.comments.map(comment => {
           return <li key={nanoid()}>{comment}</li>
         })}
         </ul>
-
-
+        <CommentForm 
+          createComment={createComment} 
+          blogs={props.blogs} 
+          setBlogs={props.setBlogs} 
+        />
 
     </div>
   )

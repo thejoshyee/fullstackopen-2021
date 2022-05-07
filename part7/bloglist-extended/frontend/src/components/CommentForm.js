@@ -2,26 +2,22 @@ import React, { useState } from "react";
 import { useParams } from 'react-router-dom'
 
 
-const CommentForm = ({ blogs, setBlogs, createComment }) => {
+const CommentForm = ({ blogs, createComment, setBlogs }) => {
 
   const id = useParams().id
   const blog = blogs.find((blog) => blog.id === id)
 
   const [newComment, setNewComment] = useState("");
 
-  // CHANGE HANDLERS
+  
   const handleCommentChange = (event) => {
-    console.log(event.target.value);
     setNewComment(event.target.value);
   };
 
-  // CREATING Comment
   const addComment = (event) => {
     event.preventDefault();
-    
-    createComment(blog.id, newComment.value);
+    createComment(blog.id, newComment);
     setNewComment("");
-    
   };
 
   return (

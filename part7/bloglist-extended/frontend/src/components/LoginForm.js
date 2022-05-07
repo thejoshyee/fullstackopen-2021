@@ -1,8 +1,11 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import Togglable from './Toggable'
 
 const LoginForm = ({ onLogin }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+
+  const blogFormRef = useRef()
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -11,11 +14,11 @@ const LoginForm = ({ onLogin }) => {
 
   return (
     <div>
-      <h2>Log in to application</h2>
+      <h2>Please login</h2>
 
       <form onSubmit={handleSubmit}>
         <div>
-          username
+          Username
           <input
             value={username}
             onChange={({ target }) => setUsername(target.value)}
@@ -23,7 +26,7 @@ const LoginForm = ({ onLogin }) => {
           />
         </div>
         <div>
-          password
+          Password
           <input
             type="password"
             value={password}
@@ -35,6 +38,7 @@ const LoginForm = ({ onLogin }) => {
           login
         </button>
       </form>
+      <div>Forgot your password? <Togglable buttonLabel='Click Here' closeLabel="X" ref={blogFormRef}>Too bad! Make a new account!</Togglable></div>
     </div>
   )
 }

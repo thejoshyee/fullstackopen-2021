@@ -87,7 +87,6 @@ const BlogList = (props) => {
 
         <div>
             {props.blogs.map((blog) => {
-                console.log(blog)
                 return (
                     <Link key={blog.id} to={'/blogs/' + blog.id}>
                         <p>{blog.title}</p> <p>{blog.likes} likes</p>

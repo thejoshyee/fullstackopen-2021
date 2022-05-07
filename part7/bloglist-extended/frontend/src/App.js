@@ -19,6 +19,8 @@ import LoginForm from './components/LoginForm'
 import Notification from './components/Notification'
 import LoggedIn from './components/LoggedIn'
 import User from './components/User'
+import Register from './components/Register'
+import Togglable from './components/Toggable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -65,19 +67,14 @@ const App = () => {
     notify('good bye!')
   }
 
+
+
   const notify = (message, type='info') => {
     setNotification({ message, type })
     setTimeout(() => {
       setNotification(null)
     }, 5000)
   }
-
-  const createComment = async (id, blog) => {
-    const updatedBlog = await blogService.comment(id, blog);
-    setBlogs(
-      blogs.map((blog) => (blog.id === updatedBlog.id ? updatedBlog : blog))
-    );
-  };
 
 
   const padding = {
@@ -87,19 +84,29 @@ const App = () => {
   if (user === null) {
     return <>
       <Notification notification={notification} />
-      <LoginForm onLogin={login} />
+      <Router>
+        <Link style={padding} to="/">Login</Link>
+        <Link style={padding} to="/register">Register</Link>
+        <h1>Welcome to Awesome Blogs</h1>
+
+        <Routes>
+          <Route path="/" element={<LoginForm onLogin={login}/>} />
+          <Route path="/register" element={<Register notify={notify} />} />
+        </Routes>
+      </Router>
     </>
   }
 
   return (
     <div>
+      <Notification notification={notification} />
       <Router>
         <div>
           <Link style={padding} to="/">Home</Link>
           <Link style={padding} to="/users">Users</Link>
           <Link style={padding} to="/blogs">Blogs</Link>
         </div>
-        <h1>Dope ass blogs</h1>
+        <h1>Awesome Blogs</h1>
 
         <LoggedIn user={user} logout={logout} />
 
@@ -107,7 +114,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/users" element={<UserList users={allUsers}/>} />
           <Route path="/blogs" element={<BlogList blogs={blogs} user={user} notify={notify} setBlogs={setBlogs} />} />
-          <Route path="/blogs/:id" element={<Blog createComment={createComment} blogs={blogs} user={user} blogFormRef={blogFormRef} setBlogs={setBlogs} setNotification={setNotification} notify={notify} />} />
+          <Route path="/blogs/:id" element={<Blog blogs={blogs} user={user} blogFormRef={blogFormRef} setBlogs={setBlogs} notify={notify} />} />
           <Route path="/users/:id" element={<User allUsers={allUsers} />} />        
         </Routes>
       </Router>
