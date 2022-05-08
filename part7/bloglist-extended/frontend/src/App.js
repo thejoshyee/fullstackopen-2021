@@ -153,7 +153,7 @@ const App = () => {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/users" element={<UserList users={allUsers} />} />
-          <Route path="/blogs" element={<BlogList blogs={blogs} user={user} notify={notify} setBlogs={setBlogs} />} />
+          <Route path="/blogs" element={<BlogList setAllUsers={setAllUsers} allUsers={allUsers} blogs={blogs} user={user} notify={notify} setBlogs={setBlogs} />} />
           <Route path="/blogs/:id" element={<Blog blogs={blogs} user={user} blogFormRef={blogFormRef} setBlogs={setBlogs} notify={notify} />} />
           <Route path="/users/:id" element={<User allUsers={allUsers} />} />        
         </Routes>

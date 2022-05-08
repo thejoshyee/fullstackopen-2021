@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Button, TableContainer, Table, TableRow, TableBody, TableCell, Paper, TextField } from '@mui/material'
+import { TableContainer, Table, TableRow, TableBody, TableCell, Paper } from '@mui/material'
 
 
 const UserList = (props) => {
@@ -19,7 +19,7 @@ const UserList = (props) => {
                             {props.users.map(user => (
                                 <TableRow key={user.id}>
                                 <TableCell>
-                                    <Link to={`/blogs/${user.id}`}>{user.name}</Link>
+                                    <Link to={`/users/${user.id}`}>{user.name}</Link>
                                 </TableCell>
                                 <TableCell>
                                     Blogs: {user.blogs.length}

@@ -18,14 +18,17 @@ const BlogList = (props) => {
     const onCreate = async (entry) => {
         try {
           blogFormRef.current.toggleVisibility()
+          
           const newBlog = await blogService.create(entry)
+
           props.notify(newBlog.title + ' has been created')
-          props.setBlogs(props.blogs.concat(newBlog))
+          props.setBlogs(prevblogs => prevblogs.concat(newBlog))
 
         } catch (e) {
           console.log(e)
         }
       }
+
 
     const handleSubmit = (event) => {
         event.preventDefault()
