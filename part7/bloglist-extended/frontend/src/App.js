@@ -9,7 +9,6 @@ import {
 import { Container, AppBar, Button, Toolbar } from '@mui/material'
 import './index.css';
 
-
 import blogService from './services/blogs'
 import loginService from './services/login'
 import userService from './services/users'
@@ -20,7 +19,6 @@ import Home from './components/Home'
 import Blog from './components/Blog'
 import LoginForm from './components/LoginForm'
 import Notification from './components/Notification'
-import LoggedIn from './components/LoggedIn'
 import User from './components/User'
 import Register from './components/Register'
 
@@ -87,7 +85,6 @@ const App = () => {
     return <>
     <Container>
       <Notification notification={notification} />
-      <Router>
         <AppBar position="static">
           <Toolbar className="nav-bar">
             <Button color="inherit" component={Link} to='/'>
@@ -107,7 +104,6 @@ const App = () => {
           <Route path="/" element={<LoginForm onLogin={login}/>} />
           <Route path="/register" element={<Register allUsers={setAllUsers} notify={notify} />} />
         </Routes>
-      </Router>
       </Container>
     </>
   }
@@ -115,7 +111,6 @@ const App = () => {
   return (
     <Container className="app-container">
       <Notification notification={notification} />
-      <Router>
         <AppBar position="static">
           <Toolbar className="nav-bar">
 
@@ -156,7 +151,6 @@ const App = () => {
           <Route path="/blogs/:id" element={<Blog blogs={blogs} user={user} blogFormRef={blogFormRef} setBlogs={setBlogs} notify={notify} />} />
           <Route path="/users/:id" element={<User allUsers={allUsers} />} />        
         </Routes>
-      </Router>
       <div className="footer">
         <p className="footer">The Blog List © 2022</p>
       </div>

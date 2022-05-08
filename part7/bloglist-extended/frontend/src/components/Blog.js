@@ -2,10 +2,12 @@ import { useParams, useNavigate } from 'react-router-dom'
 import blogService from '../services/blogs'
 import { nanoid } from 'nanoid'
 import CommentForm from './CommentForm'
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from '@mui/material'
 
 const Blog = (props) => {
+
+  const [clicked, setClicked] = useState(false)
 
   const id = useParams().id
   const blog = props.blogs.find((blog) => blog.id === id)
@@ -30,6 +32,9 @@ const Blog = (props) => {
 
   const handleLike = async (blog) => {
     try {
+      if (clicked) {
+        return null
+      }
       blog.likes += 1
       const likedBlog = await blogService.update(blog.id, blog)
       props.setBlogs(props.blogs.map(blog =>
@@ -37,6 +42,8 @@ const Blog = (props) => {
           { ...blog, likes: likedBlog.likes }
           : blog
       ))
+      setClicked(true)
+
     } catch (e) {
       console.log(e)
     }
