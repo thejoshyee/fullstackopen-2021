@@ -4,6 +4,7 @@ import React from 'react'
 import { useState, useRef } from 'react'
 import blogService from '../services/blogs'
 import { Button, TableContainer, Table, TableRow, TableBody, TableCell, Paper, TextField } from '@mui/material'
+import styled from 'styled-components';
 
 
 
@@ -37,14 +38,16 @@ const BlogList = (props) => {
         setTitle('')
         setUrl('')
       }
+
+  
     
     const blogForm = () => (
-        <Togglable buttonLabel='Add Blog' closeLabel="Cancel" ref={blogFormRef}>
+        <Togglable className="add-blog-btn" buttonLabel='Add Blog' closeLabel="Cancel" ref={blogFormRef}>
                 <div>
-                <h2>Create new</h2>
+                <h2>Add New Blog</h2>
 
                 <form onSubmit={handleSubmit}>
-                <div>
+                <div className="text-field">
                     <TextField
                     value={title}
                     onChange={({ target }) => setTitle(target.value)}
@@ -52,7 +55,7 @@ const BlogList = (props) => {
                     label='Title'
                     />
                 </div>
-                <div>
+                <div className="text-field">
                     <TextField
                     value={author}
                     onChange={({ target }) => setAuthor(target.value)}
@@ -60,7 +63,7 @@ const BlogList = (props) => {
                     label='Author'
                     />
                 </div>
-                <div>
+                <div className="text-field">
                     <TextField
                     value={url}
                     onChange={({ target }) => setUrl(target.value)}
@@ -68,9 +71,9 @@ const BlogList = (props) => {
                     label='Blog URL'
                     />
                 </div>
-                <Button variant="contained" color="primary" id='create-button' type='submit'>
+                <button className='add-btn button-18' type='submit'>
                     Add
-                </Button>
+                </button>
                 </form>
             </div>
         </Togglable>
@@ -83,7 +86,7 @@ const BlogList = (props) => {
 
     return (
         <div>
-        <h2>Blogs</h2>
+        <h2 className="blog-list">Blogs</h2>
 
         {blogForm()}
 

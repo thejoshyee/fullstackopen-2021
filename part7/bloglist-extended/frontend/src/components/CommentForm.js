@@ -22,15 +22,15 @@ const CommentForm = ({ blogs, createComment, setBlogs }) => {
   };
 
   return (
-    <div className="formDiv">
+    <div className="comment-wrapper">
       <h3>Add a comment</h3>
       <form onSubmit={addComment}>
         <p>
           <input value={newComment} onChange={handleCommentChange} />
         </p>
-        <Button variant="contained" color="primary" type="submit">
+        <button className='like-btn button-18' type="submit">
           Add
-        </Button>
+        </button>
       </form>
     </div>
   );

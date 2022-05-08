@@ -6,7 +6,8 @@ import {
   Route,
   Link,
 } from "react-router-dom"
-import { Container, AppBar, Button, Toolbar, IconButton } from '@mui/material'
+import { Container, AppBar, Button, Toolbar } from '@mui/material'
+import './index.css';
 
 
 import blogService from './services/blogs'
@@ -112,11 +113,11 @@ const App = () => {
   }
 
   return (
-    <Container>
+    <Container className="app-container">
       <Notification notification={notification} />
       <Router>
         <AppBar position="static">
-          <Toolbar>
+          <Toolbar className="nav-bar">
 
             <Button color="inherit" component={Link} to='/'>
               Home
@@ -130,25 +131,23 @@ const App = () => {
               Users
             </Button>  
 
-            <Button color="inherit">
+            <Button color="inherit" >
               {user
-                ? <em>{user.name} is logged in</em>
+                ? <div><em>{user.name} is logged in.</em></div>
 
                 : <Link to="/login">Login</Link>
               }
-
             </Button>  
 
-              {user
-                ? <em><LoggedIn user={user} logout={logout}/> </em>
+            <Button color="inherit" onClick={logout}>
+              <span className="logout-btn">Logout</span>
+            </Button>  
 
-                : <Link to="/login">Login</Link>
-              }
 
           </Toolbar>
         </AppBar>
 
-        <h1>Awesome Blogs</h1>
+        <h1 className="website-title">The Blog List</h1>
 
         <Routes>
           <Route exact path="/" element={<Home />} />
@@ -158,8 +157,8 @@ const App = () => {
           <Route path="/users/:id" element={<User allUsers={allUsers} />} />        
         </Routes>
       </Router>
-      <div>
-        <i>Bloglist App 2022</i>
+      <div className="footer">
+        <i>The Blog List © 2022</i>
       </div>
     </Container>
   );

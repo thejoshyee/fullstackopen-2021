@@ -66,26 +66,24 @@ const Blog = (props) => {
         <a href={blog.url}>{blog.url}</a>
         <div>
           <p id='likesCount'>Likes: {blog.likes}</p>
-          <Button  variant="contained" color="primary" id='likeButton' onClick={() => handleLike(blog)}>
+          <button  className='like-btn button-18' onClick={() => handleLike(blog)}>
                 Like
-          </Button>
+          </button>
           <div>Added by {blog.user.name} ({blog.user.username})</div>
         </div>
 
         {blog.user.username === props.user.username ?  (
-          <Button
-            variant="contained" 
-            color="primary"
-            id='deleteButton'
+          <button
+          className='delete-btn button-18'
             onClick={() => handleDelete(blog)}
           >
                 Delete
-          </Button>
+          </button>
         ) : (
           ''
         )}
 
-        <h3>Comments</h3>
+        <h3 className='comments-title'>Comments</h3>
         <ul>
         {blog.comments.map(comment => {
           return <li key={nanoid()}>{comment}</li>

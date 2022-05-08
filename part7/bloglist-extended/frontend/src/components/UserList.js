@@ -11,7 +11,7 @@ const UserList = (props) => {
 
     return (
         <div>
-            <h2>Users</h2>
+            <h2 className="user-list">Users</h2>
 
             <TableContainer component={Paper}>
                         <Table>
