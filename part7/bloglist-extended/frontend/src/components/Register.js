@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import userService from '../services/users'
+import { Button, TextField } from '@mui/material'
 
 const Register = (props) => {
 
@@ -22,10 +23,8 @@ const Register = (props) => {
         setName('')
         props.notify('User created, please log in now.')
     } catch (e) {
-      if (e.response.data.message) {
-        props.notify(e.response.data.message)
-      }
-      console.log(e)
+        props.notify('Username is already taken. Try again.', 'alert')
+      
     }
   }
 
@@ -35,34 +34,34 @@ const Register = (props) => {
 
       <form onSubmit={handleSubmit}>
         <div>
-          Username:
-          <input
+        <TextField 
             value={username}
             onChange={({ target }) => setUsername(target.value)}
             id='username'
+            label='Username'
           />
         </div>
         <div>
-          Name:
-          <input
+          <TextField
             type="name"
             value={name}
             onChange={({ target }) => setName(target.value)}
             id="name"
+            label='Name'
           />
         </div>
         <div>
-          Password:
-          <input
+          <TextField
             type="password"
             value={password}
             onChange={({ target }) => setPassword(target.value)}
             id="password"
+            label='Password'
           />
         </div>
-        <button id="login-button" type="submit">
+        <Button variant='contained' color='primary' id="login-button" type="submit">
           Create Account
-        </button>
+        </Button>
       </form>
     </div>
   )

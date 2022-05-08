@@ -26,7 +26,7 @@ usersRouter.post('/', async (request, response) => {
     // check if user is existing in db
     const existingUser = await User.findOne({ username })
     if (existingUser) {
-        return response.status(400).json({
+        return response.status(401).json({
             error: 'username must be unique'
         })
     }

@@ -6,6 +6,8 @@ import {
   Route,
   Link,
 } from "react-router-dom"
+import { Container, AppBar, Button, Toolbar, IconButton } from '@mui/material'
+
 
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -20,7 +22,6 @@ import Notification from './components/Notification'
 import LoggedIn from './components/LoggedIn'
 import User from './components/User'
 import Register from './components/Register'
-import Togglable from './components/Toggable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -40,7 +41,7 @@ const App = () => {
     userService.getAll().then(users =>
       setAllUsers(users)
     )
-  }, [])
+  }, [allUsers])
 
   useEffect(() => {
     const userFromStorage = userService.getUser()
@@ -83,36 +84,75 @@ const App = () => {
 
   if (user === null) {
     return <>
+    <Container>
       <Notification notification={notification} />
       <Router>
-        <Link style={padding} to="/">Login</Link>
-        <Link style={padding} to="/register">Register</Link>
+        <AppBar position="static">
+          <Toolbar>
+            <Button color="inherit" component={Link} to='/'>
+              Login
+            </Button>
+            <Button component={Link} to='/register' color="inherit">
+              Register
+            </Button>
+          </Toolbar>
+        </AppBar>
+
+
+
         <h1>Welcome to Awesome Blogs</h1>
 
         <Routes>
           <Route path="/" element={<LoginForm onLogin={login}/>} />
-          <Route path="/register" element={<Register notify={notify} />} />
+          <Route path="/register" element={<Register allUsers={setAllUsers} notify={notify} />} />
         </Routes>
       </Router>
+      </Container>
     </>
   }
 
   return (
-    <div>
+    <Container>
       <Notification notification={notification} />
       <Router>
-        <div>
-          <Link style={padding} to="/">Home</Link>
-          <Link style={padding} to="/users">Users</Link>
-          <Link style={padding} to="/blogs">Blogs</Link>
-        </div>
+        <AppBar position="static">
+          <Toolbar>
+
+            <Button color="inherit" component={Link} to='/'>
+              Home
+            </Button>
+
+            <Button color="inherit" component={Link} to='/blogs'>
+              Blogs
+            </Button>
+
+            <Button color="inherit" component={Link} to='/users'>
+              Users
+            </Button>  
+
+            <Button color="inherit">
+              {user
+                ? <em>{user.name} is logged in</em>
+
+                : <Link to="/login">Login</Link>
+              }
+
+            </Button>  
+
+              {user
+                ? <em><LoggedIn user={user} logout={logout}/> </em>
+
+                : <Link to="/login">Login</Link>
+              }
+
+          </Toolbar>
+        </AppBar>
+
         <h1>Awesome Blogs</h1>
 
-        <LoggedIn user={user} logout={logout} />
-
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/users" element={<UserList users={allUsers}/>} />
+          <Route exact path="/" element={<Home />} />
+          <Route path="/users" element={<UserList users={allUsers} />} />
           <Route path="/blogs" element={<BlogList blogs={blogs} user={user} notify={notify} setBlogs={setBlogs} />} />
           <Route path="/blogs/:id" element={<Blog blogs={blogs} user={user} blogFormRef={blogFormRef} setBlogs={setBlogs} notify={notify} />} />
           <Route path="/users/:id" element={<User allUsers={allUsers} />} />        
@@ -121,7 +161,7 @@ const App = () => {
       <div>
         <i>Bloglist App 2022</i>
       </div>
-    </div>
+    </Container>
   );
 }
 

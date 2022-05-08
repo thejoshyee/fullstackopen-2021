@@ -1,8 +1,11 @@
+import { Button } from '@mui/material'
+
+
 const LoggedIn = ({user, logout}) => {
     return (
       <div>
-      {user.name} logged in
-      <button onClick={logout}>logout</button>
+      {/* {user.name} is logged in */}
+      <Button variant='contained' color='primary' id='logout-btn' onClick={logout}>logout</Button>
     </div>
     )
   }

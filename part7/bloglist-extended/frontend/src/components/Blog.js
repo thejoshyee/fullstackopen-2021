@@ -3,6 +3,7 @@ import blogService from '../services/blogs'
 import { nanoid } from 'nanoid'
 import CommentForm from './CommentForm'
 import React from 'react'
+import { Button } from '@mui/material'
 
 const Blog = (props) => {
 
@@ -58,25 +59,28 @@ const Blog = (props) => {
 
   return (
     <div id='blogWrapper'>
-      <div id='blogTitle'>{blog.title} by {blog.author}
-      </div>
+      <h3 id='blogTitle'>
+        {blog.title} by {blog.author}
+      </h3>
 
-        <div>{blog.url}</div>
+        <a href={blog.url}>{blog.url}</a>
         <div>
           <p id='likesCount'>Likes: {blog.likes}</p>
-          <button id='likeButton' onClick={() => handleLike(blog)}>
+          <Button  variant="contained" color="primary" id='likeButton' onClick={() => handleLike(blog)}>
                 Like
-          </button>
+          </Button>
           <div>Added by {blog.user.name} ({blog.user.username})</div>
         </div>
 
         {blog.user.username === props.user.username ?  (
-          <button
+          <Button
+            variant="contained" 
+            color="primary"
             id='deleteButton'
             onClick={() => handleDelete(blog)}
           >
                 Delete
-          </button>
+          </Button>
         ) : (
           ''
         )}

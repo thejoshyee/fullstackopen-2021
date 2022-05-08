@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from 'react-router-dom'
+import { Button } from '@mui/material'
 
 
 const CommentForm = ({ blogs, createComment, setBlogs }) => {
@@ -27,9 +28,9 @@ const CommentForm = ({ blogs, createComment, setBlogs }) => {
         <p>
           <input value={newComment} onChange={handleCommentChange} />
         </p>
-        <button type="submit">
+        <Button variant="contained" color="primary" type="submit">
           Add
-        </button>
+        </Button>
       </form>
     </div>
   );

@@ -3,6 +3,8 @@ import Togglable from './Toggable'
 import React from 'react'
 import { useState, useRef } from 'react'
 import blogService from '../services/blogs'
+import { Button, TableContainer, Table, TableRow, TableBody, TableCell, Paper, TextField } from '@mui/material'
+
 
 
 const BlogList = (props) => {
@@ -40,35 +42,32 @@ const BlogList = (props) => {
 
                 <form onSubmit={handleSubmit}>
                 <div>
-                    title
-                    <input
+                    <TextField
                     value={title}
                     onChange={({ target }) => setTitle(target.value)}
                     id='title'
-                    placeholder='title of the blog'
+                    label='Title'
                     />
                 </div>
                 <div>
-                    author
-                    <input
+                    <TextField
                     value={author}
                     onChange={({ target }) => setAuthor(target.value)}
                     id='author'
-                    placeholder='author of the blog'
+                    label='Author'
                     />
                 </div>
                 <div>
-                    url
-                    <input
+                    <TextField
                     value={url}
                     onChange={({ target }) => setUrl(target.value)}
                     id='url'
-                    placeholder='url of the blog'
+                    label='Blog URL'
                     />
                 </div>
-                <button id='create-button' type='submit'>
-                    create
-                </button>
+                <Button variant="contained" color="primary" id='create-button' type='submit'>
+                    Add
+                </Button>
                 </form>
             </div>
         </Togglable>
@@ -86,13 +85,22 @@ const BlogList = (props) => {
         {blogForm()}
 
         <div>
-            {props.blogs.map((blog) => {
-                return (
-                    <Link key={blog.id} to={'/blogs/' + blog.id}>
-                        <p>{blog.title}</p> <p>{blog.likes} likes</p>
-                    </Link>
-                )
-            })}
+        <TableContainer component={Paper}>
+            <Table>
+                <TableBody>
+                {props.blogs.map(blog => (
+                    <TableRow key={blog.id}>
+                    <TableCell>
+                        <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+                    </TableCell>
+                    <TableCell>
+                        Likes: {blog.likes}
+                    </TableCell>
+                    </TableRow>
+                ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
         </div>
     </div>
     )
