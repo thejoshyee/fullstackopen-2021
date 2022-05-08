@@ -18,9 +18,11 @@ const User = (props) => {
             <div>
                 {user.blogs.map((blog) => {
                     return (
-                        <Link key={blog.id} to={'/blogs/' + blog.id}>
-                            <p>{blog.title}</p>
+                        <li key={blog.id}>
+                        <Link to={'/blogs/' + blog.id}>
+                            {blog.title}
                         </Link>
+                        </li>
                     )
                 })}
             </div>

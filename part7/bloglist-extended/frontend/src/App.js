@@ -133,13 +133,13 @@ const App = () => {
 
             <Button color="inherit" >
               {user
-                ? <div><em>{user.name} is logged in.</em></div>
+                ? <div className='loggedin-user'><em>Logged-in as {user.username}</em></div>
 
                 : <Link to="/login">Login</Link>
               }
             </Button>  
 
-            <Button color="inherit" onClick={logout}>
+            <Button color="inherit" component={Link} to='/' onClick={logout}>
               <span className="logout-btn">Logout</span>
             </Button>  
 
@@ -158,7 +158,7 @@ const App = () => {
         </Routes>
       </Router>
       <div className="footer">
-        <i>The Blog List © 2022</i>
+        <p className="footer">The Blog List © 2022</p>
       </div>
     </Container>
   );

@@ -1,9 +1,15 @@
+* {
+  box-sizing: border-box;
+
+}
+
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: lightgray;
+
 }
 
 code {
@@ -110,7 +116,7 @@ code {
 }
 
 .comments-title {
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 
 .comment-wrapper {
@@ -141,4 +147,58 @@ a:hover {
 
 .register-btn {
   margin-top: 1em;
+}
+
+.loggedin-user {
+  color: #A65B59;
+}
+
+#blogTitle {
+  font-size: 1.5rem;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+
+.blog-url {
+  font-size: 1.3rem;
+  margin-bottom: 4em;
+  color: #A65B59
+}
+
+.blog-url:hover {
+  font-size: 1.3rem;
+  margin-bottom: 4em;
+  color: #59a4a6;
+}
+
+.likes-wrapper {
+  margin-top: 2em;
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+
+.footer {
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+
+.added-by-name {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.add-comment-title {
+  font-weight: 400;
+}
+
+.ri-heart-line:hover {
+  color: #FF5858;
+  
+}
+
+.user-name, .blog-number, .blog-name-list, .blog-list-likes {
+  font-family: 'Raleway', sans-serif;
+
 }

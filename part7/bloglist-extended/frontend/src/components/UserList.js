@@ -19,10 +19,10 @@ const UserList = (props) => {
                             {props.users.map(user => (
                                 <TableRow key={user.id}>
                                 <TableCell>
-                                    <Link to={`/users/${user.id}`}>{user.name}</Link>
+                                    <Link className='user-name' to={`/users/${user.id}`}>{user.name}</Link>
                                 </TableCell>
                                 <TableCell>
-                                    Blogs: {user.blogs.length}
+                                    <div className="blog-number">Blogs: {user.blogs.length}</div>
                                 </TableCell>
                                 </TableRow>
                             ))}

@@ -23,7 +23,7 @@ const CommentForm = ({ blogs, createComment, setBlogs }) => {
 
   return (
     <div className="comment-wrapper">
-      <h3>Add a comment</h3>
+      <h3 className='add-comment-title'>Add a Comment</h3>
       <form onSubmit={addComment}>
         <p>
           <input value={newComment} onChange={handleCommentChange} />

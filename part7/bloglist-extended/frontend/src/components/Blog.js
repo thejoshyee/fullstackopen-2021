@@ -63,14 +63,14 @@ const Blog = (props) => {
         {blog.title} by {blog.author}
       </h3>
 
-        <a href={blog.url}>{blog.url}</a>
-        <div>
+        <a className='blog-url' href={blog.url}>{blog.url}</a>
+
+        <div className="likes-wrapper">
           <p id='likesCount'>Likes: {blog.likes}</p>
-          <button  className='like-btn button-18' onClick={() => handleLike(blog)}>
-                Like
-          </button>
-          <div>Added by {blog.user.name} ({blog.user.username})</div>
+          <div className='ri-heart-line' onClick={() => handleLike(blog)}></div>
         </div>
+
+        <div className='added-by-name'>Added by {blog.user.name} ({blog.user.username})</div>
 
         {blog.user.username === props.user.username ?  (
           <button

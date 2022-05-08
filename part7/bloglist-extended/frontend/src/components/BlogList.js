@@ -97,10 +97,10 @@ const BlogList = (props) => {
                 {props.blogs.map(blog => (
                     <TableRow key={blog.id}>
                     <TableCell>
-                        <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+                        <Link className='blog-name-list' to={`/blogs/${blog.id}`}>{blog.title}</Link>
                     </TableCell>
                     <TableCell>
-                        Likes: {blog.likes}
+                        <div className='blog-list-likes'>Likes: {blog.likes}</div>
                     </TableCell>
                     </TableRow>
                 ))}
