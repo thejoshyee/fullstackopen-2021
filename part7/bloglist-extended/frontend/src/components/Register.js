@@ -33,7 +33,7 @@ const Register = (props) => {
       <h2>Register a New Account</h2>
 
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="text-field">
         <TextField 
             value={username}
             onChange={({ target }) => setUsername(target.value)}
@@ -41,7 +41,7 @@ const Register = (props) => {
             label='Username'
           />
         </div>
-        <div>
+        <div className="text-field">
           <TextField
             type="name"
             value={name}
@@ -50,7 +50,7 @@ const Register = (props) => {
             label='Name'
           />
         </div>
-        <div>
+        <div className="text-field">
           <TextField
             type="password"
             value={password}
@@ -59,9 +59,9 @@ const Register = (props) => {
             label='Password'
           />
         </div>
-        <Button variant='contained' color='primary' id="login-button" type="submit">
+        <button className="button-18 register-btn" type="submit">
           Create Account
-        </Button>
+        </button>
       </form>
     </div>
   )

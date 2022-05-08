@@ -126,3 +126,19 @@ a:hover {
   color: #A65B59;
 }
 
+.login-btn {
+  margin-top: 1em;
+}
+
+.forgot-pw {
+  margin-top: 1em;
+  margin-right: 1em;
+}
+
+.cancel-btn-pw {
+  margin-top: 4em;
+}
+
+.register-btn {
+  margin-top: 1em;
+}

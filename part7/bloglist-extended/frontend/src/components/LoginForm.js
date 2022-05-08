@@ -19,7 +19,7 @@ const LoginForm = ({ onLogin }) => {
       <h2>Please login</h2>
 
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="text-field">
         <TextField 
           value={username}
           onChange={({ target }) => setUsername(target.value)}
@@ -27,7 +27,7 @@ const LoginForm = ({ onLogin }) => {
           label="username" />
 
         </div>
-        <div>
+        <div className="text-field">
         <TextField 
           label="password" 
           type='password' 
@@ -37,12 +37,21 @@ const LoginForm = ({ onLogin }) => {
           />
 
         </div>
-        <Button id="login-button" variant="contained" color="primary" type="submit">
+        <button className='login-btn button-18' id="login-button" variant="contained" color="primary" type="submit">
           Login
-        </Button>
+        </button>
 
       </form>
-      <div>Forgot your password? <Togglable buttonLabel='Click Here' closeLabel="X" ref={blogFormRef}>Too bad! Make a new account!</Togglable></div>
+      <div className="forgot-pw-wrapper">
+
+        <i>Forgot your password? </i>
+        <div className="forgot-pw">
+          <Togglable className="cancel-btn-pw" buttonLabel='Click Here' closeLabel="Close" ref={blogFormRef}>
+            <span className='forgot-pw'>Too bad! Make a new account!</span>
+          </Togglable>
+        </div>
+
+      </div>
     </div>
   )
 }

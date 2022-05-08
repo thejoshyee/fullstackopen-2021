@@ -89,7 +89,7 @@ const App = () => {
       <Notification notification={notification} />
       <Router>
         <AppBar position="static">
-          <Toolbar>
+          <Toolbar className="nav-bar">
             <Button color="inherit" component={Link} to='/'>
               Login
             </Button>
@@ -101,7 +101,7 @@ const App = () => {
 
 
 
-        <h1>Welcome to Awesome Blogs</h1>
+        <h1 className="website-title">The Blog List</h1>
 
         <Routes>
           <Route path="/" element={<LoginForm onLogin={login}/>} />
