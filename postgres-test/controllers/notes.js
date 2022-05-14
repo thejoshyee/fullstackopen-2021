@@ -1,4 +1,5 @@
 const router = require('express').Router()
+require('express-async-errors')
 
 const { Note } = require('../models')
 
@@ -13,12 +14,8 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-  try {
     const note = await Note.create(req.body)
     res.json(note)
-  } catch(error) {
-    return res.status(400).json({ error })
-  }
 })
 
 router.get('/:id', noteFinder, async (req, res) => {
