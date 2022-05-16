@@ -14,5 +14,5 @@ This course serves as an introduction to modern web application development with
 >
 >Course Website: https://fullstackopen.com/en
 
-## Certificate 
-<img src="https://studies.cs.helsinki.fi/stats/api/certificate/fullstackopen/en/4eb548835f4102a8ec05b4c772660f14" width="50%" />
+## Certificate
+<img src="https://studies.cs.helsinki.fi/stats/api/certificate/fullstackopen/en/4eb548835f4102a8ec05b4c772660f14" width="75%" />
