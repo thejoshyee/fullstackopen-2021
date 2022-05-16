@@ -1,8 +1,10 @@
 POST http://localhost:3001/api/notes 
 Content-Type: application/json
+# Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imp5ZWUiLCJpZCI6MSwiaWF0IjoxNjUyNzMwMTQ5fQ.9W9WK9bGoORI4zrflBdziZOdX1Xhk_GywzQ2bZAK0-g
+Authorization:  bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImV5ZWUiLCJpZCI6MiwiaWF0IjoxNjUyNzMwMzkzfQ.HsgQH0PmE3omOYdHu2IUDn1ciIodoYO9yR_qRbS4_wc
 
 {
-"content": "how to dance",
+"content": "how to speak tagalog",
 "important": true
 }
 

@@ -1,0 +1,8 @@
+PUT http://localhost:3001/api/users/eyee
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imp5ZWUiLCJpZCI6MSwiaWF0IjoxNjUyNzMwMTQ5fQ.9W9WK9bGoORI4zrflBdziZOdX1Xhk_GywzQ2bZAK0-g
+
+
+{
+    "disabled": false
+}
