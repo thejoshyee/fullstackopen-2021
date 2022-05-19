@@ -5,23 +5,23 @@ import RenderWeather from "./RenderWeather"
 
 const RenderDetails = ({ country ,countryLangs }) => {
 
-  const api_key = process.env.REACT_APP_API_KEY
 
   // state for weather
   const [weather, setWeather] = useState([])
-  const [opacity, setOpacity] = useState(0)
+
+  // const api_key = process.env.REACT_APP_API_KEY
+  // http://api.weatherstack.com/current?access_key=${api_key}&query=${country.capital}&units=f
 
   useEffect(() => {
       axios
-          .get(`http://api.weatherstack.com/current?access_key=${api_key}&query=${country.capital}&units=f`)
+          .get(`https://apis.scrimba.com/openweathermap/data/2.5/weather?q=${country.capital[0]}&units=imperial`)
           .then(response => {
               setWeather(response.data)
             }
       )}, [])
 
-    
   return (
-    <div className="country-card-details" style={{opacity: 1}}>
+    <div className="country-card-details" >
         <p><span className="country-detail">Capital:</span> {country.capital}</p>
         <p><span className="country-detail">Area:</span> {country.area}</p>
         <p><span className="country-detail">Languages:</span></p>
