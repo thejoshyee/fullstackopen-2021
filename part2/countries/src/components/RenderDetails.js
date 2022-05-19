@@ -9,6 +9,7 @@ const RenderDetails = ({ country ,countryLangs }) => {
 
   // state for weather
   const [weather, setWeather] = useState([])
+  const [opacity, setOpacity] = useState(0)
 
   useEffect(() => {
       axios
@@ -17,9 +18,10 @@ const RenderDetails = ({ country ,countryLangs }) => {
               setWeather(response.data)
             }
       )}, [])
+
     
   return (
-    <div className="country-card-details">
+    <div className="country-card-details" style={{opacity: 1}}>
         <p><span className="country-detail">Capital:</span> {country.capital}</p>
         <p><span className="country-detail">Area:</span> {country.area}</p>
         <p><span className="country-detail">Languages:</span></p>
@@ -32,6 +34,7 @@ const RenderDetails = ({ country ,countryLangs }) => {
           <RenderWeather country={country} weather={weather}/>
     </div>
   )
+
 }
 
 export default RenderDetails

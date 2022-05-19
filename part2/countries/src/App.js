@@ -36,7 +36,7 @@ const App = () => {
         />
       </div>
 
-      <div>
+      <div className="countries-wrapper">
         <RenderCountriesList 
           filterQuery={filterQuery} 
           countries={filteredCountries}

@@ -1,7 +1,5 @@
 * {
     box-sizing: border-box;
-    /* margin: 0;
-    padding: 0; */
 
 }
 
@@ -51,9 +49,9 @@ body {
     transition: 0.4s ease;
   }
   
-  /* .search-box .search-bar:focus {
-    background-color: rgba(255, 255, 255, 0.85)
-  } */
+  .search-box .search-bar:focus {
+    background-color: #399AC6;
+  }
 
   .search-box {
       margin-bottom: 2.5em;
@@ -78,17 +76,30 @@ body {
     padding: 1em;
     border-radius: 10px;
     align-items: center;
+    align-self: start;
+}
+
+.country-card-shown {
+    display: flex;
+    flex-direction: column;
+    background-color: #399AC6;
+    margin: 1em;
+    padding: 1em;
+    border-radius: 10px;
+    align-items: center;
 }
 
 .country-name {
     font-weight: 100;
     text-transform: uppercase;
     text-align: center;
-    font-size: 2rem;
+    font-size: 3rem;
+    margin-bottom: 0.3em;
     margin-top: 0.2em;
 }
 
 .detail-button {
+
     font-family: 'Montserrat', sans-serif;
     background-color: #C6399A;
     color: white;
@@ -99,17 +110,22 @@ body {
     padding-left: 1.5em;
     text-transform: uppercase;
     width: 35%;
-	border-style: solid;
+    border: none;
 
 }
 
-
+.detail-button:hover {
+    cursor: pointer;
+    background-color: #9AC639;
+    transition: 175ms;
+}
 
 
 /* country details */
 
 .country-card-details {
     margin: 1em;
+    font-size: 1.75rem;
 }
 
 .country-detail {
@@ -120,6 +136,59 @@ body {
     margin-top: 0;
 }
 
-.weather-icon {
-    mix-blend-mode:darken;
-}
+/* .weather-icon {
+    mix-blend-mode:soft-light;
+} */
+
+/* larger screens */
+
+@media only screen and (min-width: 600px) {
+
+    .country-name {
+        font-size: 2rem;
+        margin-bottom: 0.5em;
+    }
+
+    .detail-button {
+        font-size: 1rem;
+        width: 25%;
+    }
+
+  }
+
+  @media only screen and (min-width: 1300px) {
+
+    .detail-button {
+        display: flex;
+        justify-content: center;
+        font-size: 0.6rem;
+        width: 35%;
+    }
+
+    .country-card-details {
+        margin: 1em;
+        font-size: 1.2rem;
+    }
+    
+
+    .country-name {
+        font-size: 1.75rem;
+        margin-bottom: 0.5em;
+    }
+
+    .countries-wrapper {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-auto-rows: minmax(150px, auto);
+        width: 100%;
+        justify-content: center;
+    }
+
+  
+
+
+
+
+
+  }
+
