@@ -1,12 +1,36 @@
 * {
     box-sizing: border-box;
+    /* margin: 0;
+    padding: 0; */
 
+}
+
+body {
+    color: white;
 }
 
 .flag {
     font-size: 100px;
 }
+.search-input-wrapper {
+    display: flex; 
+    gap: 1em;
+}
+
+.find-countries-title {
+    color: black;
+}
 
 .country-card {
-    background-color: red;
+    background-color: #399AC6;
+    margin: 1em;
+    padding: 0.5em;
+}
+
+.country-card-details {
+    margin: 1em;
+}
+
+.country-name {
+    
 }

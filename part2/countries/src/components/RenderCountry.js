@@ -19,14 +19,14 @@ const RenderCountry = ({ country }) => {
     if (!isDetailsVisible) {
         return (
             <div className="country-card">
-                <p>{country.name.common}</p>
+                <p className="country-name">{country.name.common}</p>
                 <button onClick={showCountryDetails}>Show Country Info</button>
             </div>
         )
     } else {
         return (
             <div className="country-card">
-                <h1>{country.name.common}</h1>
+                <p className="country-name">{country.name.common}</p>
                 <button 
                     onClick={showCountryDetails}>
                     Hide Country Info

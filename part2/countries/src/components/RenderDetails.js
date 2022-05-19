@@ -19,7 +19,7 @@ const RenderDetails = ({ country ,countryLangs }) => {
       )}, [])
     
   return (
-    <div>
+    <div className="country-card-details">
         <p><b>Capital:</b> {country.capital}</p>
         <p><b>Area:</b> {country.area}</p>
         <b>Languages:</b>
