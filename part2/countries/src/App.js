@@ -26,16 +26,14 @@ const App = () => {
       
   return (
     <div>
-      <div className="search-input-wrapper">
 
-        <p className="find-countries-title">Search Countries:</p>
+      <div className="search-box">
         <input
-          className="country-search-input"
-          placeholder="Country Name..." 
+          className="search-bar"
+          placeholder="FIND A COUNTRY..." 
           value={filterQuery} 
           onChange={onFilterQuery}
         />
-        
       </div>
 
       <div>

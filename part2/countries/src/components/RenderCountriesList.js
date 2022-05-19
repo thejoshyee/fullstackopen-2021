@@ -6,7 +6,7 @@ const RenderCountriesList = ({ countries, filterQuery }) => {
     if (!filterQuery) {
         return false
     } else if (countries.length > 10 && filterQuery) {
-        return <p>Too many results. Please be more specific...</p>
+        return <p className="warning-message">Too many results. Please be more specific...</p>
     } else {
         return (
             countries.map(country => {

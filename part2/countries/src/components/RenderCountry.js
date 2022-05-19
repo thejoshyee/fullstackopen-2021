@@ -20,7 +20,7 @@ const RenderCountry = ({ country }) => {
         return (
             <div className="country-card">
                 <p className="country-name">{country.name.common}</p>
-                <button onClick={showCountryDetails}>Show Country Info</button>
+                <button className="detail-button" onClick={showCountryDetails}>Show Info</button>
             </div>
         )
     } else {
@@ -28,8 +28,9 @@ const RenderCountry = ({ country }) => {
             <div className="country-card">
                 <p className="country-name">{country.name.common}</p>
                 <button 
+                    className="detail-button"
                     onClick={showCountryDetails}>
-                    Hide Country Info
+                    Hide Info
                 </button>
                 <RenderDetails country={country} countryLangs={countryLangs} />
             </div>

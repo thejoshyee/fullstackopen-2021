@@ -7,30 +7,119 @@
 
 body {
     color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
 }
 
 .flag {
     font-size: 100px;
-}
-.search-input-wrapper {
-    display: flex; 
-    gap: 1em;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
-.find-countries-title {
-    color: black;
+/* search box */
+.search-bar::placeholder {
+    color: #fff;
+}
+.search-box {
+    width: 100%;
+    margin: 0 0 75px;
+  }
+  
+  .search-box .search-bar {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    padding-bottom: 0;
+    padding-top: 25px;
+    font-weight: 800;
+
+    appearance: none;
+    background: none;
+    border: none;
+    outline: none;
+  
+    background-color: #ABABAB;
+    border-radius: 0px 0px 16px 16px;
+    margin-top: -25px;
+  
+    box-shadow: 0px 5px rgba(0, 0, 0, 0.2);
+  
+    color: #fff;
+    font-size: 35px;
+  
+    transition: 0.4s ease;
+  }
+  
+  /* .search-box .search-bar:focus {
+    background-color: rgba(255, 255, 255, 0.85)
+  } */
+
+  .search-box {
+      margin-bottom: 2.5em;
+  }
+
+
+/* country card */
+
+.warning-message {
+    color: #C6399A;
+    font-weight: 500;
+    font-style: italic;
+    padding-left: 1em;
 }
 
 .country-card {
+    display: flex;
+    flex-direction: column;
     background-color: #399AC6;
+    padding-top: 0.4em;
     margin: 1em;
-    padding: 0.5em;
+    padding: 1em;
+    border-radius: 10px;
+    align-items: center;
 }
+
+.country-name {
+    font-weight: 100;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 0.2em;
+}
+
+.detail-button {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #C6399A;
+    color: white;
+    border-radius: 10px;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-right: 1.5em;
+    padding-left: 1.5em;
+    text-transform: uppercase;
+    width: 35%;
+	border-style: solid;
+
+}
+
+
+
+
+/* country details */
 
 .country-card-details {
     margin: 1em;
 }
 
-.country-name {
-    
+.country-detail {
+    font-weight: 500;
+}
+
+.weather-detail {
+    margin-top: 0;
+}
+
+.weather-icon {
+    mix-blend-mode:darken;
 }

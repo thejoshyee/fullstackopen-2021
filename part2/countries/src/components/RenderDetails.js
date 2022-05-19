@@ -20,9 +20,9 @@ const RenderDetails = ({ country ,countryLangs }) => {
     
   return (
     <div className="country-card-details">
-        <p><b>Capital:</b> {country.capital}</p>
-        <p><b>Area:</b> {country.area}</p>
-        <b>Languages:</b>
+        <p><span className="country-detail">Capital:</span> {country.capital}</p>
+        <p><span className="country-detail">Area:</span> {country.area}</p>
+        <p><span className="country-detail">Languages:</span></p>
             <ul>
                 {countryLangs.map(lang => <li key={lang}> {lang} </li>)}
             </ul>
